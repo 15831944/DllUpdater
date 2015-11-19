@@ -1,0 +1,405 @@
+﻿<Controls:MetroWindow x:Class="DllUpdater.Views.MainWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                      xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+                      xmlns:l="http://schemas.livet-mvvm.net/2011/wpf"
+                      xmlns:v="clr-namespace:DllUpdater.Views"
+                      xmlns:vm="clr-namespace:DllUpdater.ViewModels"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:properties="clr-namespace:DllUpdater.Properties"
+                      Icon="/DllUpdater;component/Resources/DllUpdater.ico"
+                      Title="DllUpdater" 
+                      TitleCaps="False"
+                      GlowBrush="{DynamicResource AccentColorBrush}"
+                      ResizeMode="CanResizeWithGrip"                      
+                      SaveWindowPosition="True"
+                      WindowTransitionsEnabled="False"
+                      Height="538.392" Width="709.758" >
+
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+
+    <i:Interaction.Triggers>
+        <l:InteractionMessageTrigger Messenger="{Binding Messenger}" MessageKey="Information">
+            <l:InformationDialogInteractionMessageAction/>
+        </l:InteractionMessageTrigger>
+
+        <!--Viewに特別な要件が存在しない限りは、トリガーやアクションの自作にこだわらず積極的にコードビハインドを使いましょう -->
+        <!--Viewのコードビハインドは、基本的にView内で完結するロジックとViewModelからのイベントの受信(専用リスナを使用する)に限るとトラブルが少なくなります -->
+        <!--Livet1.1からはコードビハインドでViewModelのイベントを受信するためのWeakEventLisnterサポートが追加されています -->
+
+        <!--WindowのContentRenderedイベントのタイミングでViewModelのInitializeメソッドが呼ばれます-->
+        <i:EventTrigger EventName="ContentRendered">
+            <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="Initialize"/>
+        </i:EventTrigger>
+
+        <!--Windowが閉じたタイミングでViewModelのDisposeメソッドが呼ばれます-->
+        <i:EventTrigger EventName="Closed">
+            <l:LivetCallMethodAction MethodTarget="{Binding}" MethodName="Shutdown"/>
+            <l:DataContextDisposeAction/>
+        </i:EventTrigger>
+
+        <!--WindowのCloseキャンセル処理に対応する場合は、WindowCloseCancelBehaviorの使用を検討してください-->
+
+    </i:Interaction.Triggers>
+
+    <Window.Resources>
+        <BitmapImage x:Key="IconFFACE" UriSource="/DllUpdater;component/Resources/FFACE.png"/>
+        <BitmapImage x:Key="IconEliteAPI" UriSource="/DllUpdater;component/Resources/EliteApi.png"/>
+    </Window.Resources>
+
+    <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem Content="{Binding Dlls.StatusMessage}"/>
+        </StatusBar>
+        <TabControl Padding="2">
+            <TabItem Header="{x:Static properties:Resources.TabMainHeader}"
+                     Controls:ControlsHelper.HeaderFontSize="15">
+                <DockPanel>
+                    <Border BorderThickness="2" 
+                            BorderBrush="Silver"
+                            Margin="0,0,0,2" 
+                            DockPanel.Dock="Top">
+                        <DockPanel HorizontalAlignment="Left">
+                            <Image Source="{StaticResource IconFFACE}" Width="20" Margin="5,0,5,0"/>
+                            <CheckBox IsChecked="{Binding Settings.FFACE.Enable}" Content="FFACE" FontWeight="Bold"/>
+                            <Label Content="{Binding Dlls.VersionFFACE}"/>
+                            <CheckBox IsChecked="{Binding Settings.FFACETools.Enable}" Content="FFACETools" FontWeight="Bold"/>
+                            <Label Content="{Binding Dlls.VersionFFACETools}"/>
+                            <Image Source="{StaticResource IconEliteAPI}" Width="20" Margin="20,0,10,0"/>
+                            <CheckBox IsChecked="{Binding Settings.EliteAPI.Enable}" Content="EliteApi" FontWeight="Bold"/>
+                            <Label Content="{Binding Dlls.VersionEliteAPI}"/>
+                            <CheckBox IsChecked="{Binding Settings.EliteMMOAPI.Enable}" Content="EliteMMO.API" FontWeight="Bold"/>
+                            <Label Content="{Binding Dlls.VersionEliteMMOAPI}"/>
+                            <ToggleButton Command="{Binding VersionCheckCommand}" 
+                                          IsChecked="{Binding Dlls.IsRunningVersionCheck, Mode=OneWay}"
+                                          Padding="5,2,5,2"
+                                          Margin="10,2,2,2"
+                                          ToolTip="{x:Static properties:Resources.ButtonVersionCheckToolTip}">
+                                <Rectangle Width="15"
+                                       Height="15"
+                                       Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ToggleButton}}}">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill"
+                                         Visual="{DynamicResource appbar_refresh}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                            </ToggleButton>
+
+                        </DockPanel>
+                    </Border>
+                    <StackPanel DockPanel.Dock="Left" Margin="0,0,2,0">
+                        <ToggleButton Command="{Binding DownloadDllCommand}" 
+                                      IsChecked="{Binding Dlls.IsRunningDownload, Mode=OneWay}"
+                                      ToolTip="{x:Static properties:Resources.ButtonDownloadToolTip}">
+                            <Rectangle Width="20"
+                                       Height="20"
+                                       Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ToggleButton}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill"
+                                         Visual="{DynamicResource appbar_cloud_download}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </ToggleButton>
+                        <ToggleButton Command="{Binding SearchDllCommand}"
+                                      IsChecked="{Binding Dlls.IsRunningSearch, Mode=OneWay}"
+                                      ToolTip="{x:Static properties:Resources.ButtonSearchToolTip}">
+                            <Rectangle Width="20"
+                                       Height="20"
+                                       Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ToggleButton}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill"
+                                         Visual="{DynamicResource appbar_page_search}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </ToggleButton>
+                        <Button Command="{Binding AllCheckCommand}"
+                                ToolTip="{x:Static properties:Resources.ButtonChekAllToolTip}">
+                            <Rectangle Width="20"
+                                       Height="20"
+                                       Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill"
+                                         Visual="{DynamicResource appbar_checkmark}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                        <ToggleButton Command="{Binding ReplaceDllCommand}" 
+                                      IsChecked="{Binding Dlls.IsRunningReplace, Mode=OneWay}" 
+                                      ToolTip="{x:Static properties:Resources.ButtonReplaceToolTip}">
+                            <Rectangle Width="20"
+                                       Height="20"
+                                       Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ToggleButton}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill"
+                                         Visual="{DynamicResource appbar_save}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </ToggleButton>
+                    </StackPanel>
+                    <!--置換対象DLLグリッド-->
+                    <DataGrid ItemsSource="{Binding Dlls.DllList}" 
+                              BorderThickness="2" 
+                              BorderBrush="Silver"
+                              AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Header="{x:Static properties:Resources.ColReplace}"
+                                                    ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                    EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                    Binding="{Binding Enable, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTextColumn Header="{x:Static properties:Resources.ColPath}"
+                                                Binding="{Binding Path}" 
+                                                IsReadOnly="True"
+                                                Width="*"/>
+                            <DataGridTextColumn Header="{x:Static properties:Resources.ColVersion}"
+                                                Binding="{Binding Version}" 
+                                                IsReadOnly="True"/>
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+
+                </DockPanel>
+            </TabItem>
+            <!--設定タブ-->
+            <TabItem Header="{x:Static properties:Resources.TabSettingsHeader}"
+                     Controls:ControlsHelper.HeaderFontSize="15">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <GroupBox Header="{x:Static properties:Resources.GroupGlobalHeader}" 
+                              Margin="2"
+                              Grid.Row="0">
+                        <WrapPanel Orientation="Horizontal"
+                                        Margin="2">
+                            <CheckBox Content="{x:Static properties:Resources.CheckDownloadAtStartup}"
+                                      IsChecked="{Binding Settings.CheckNewDllOnStartup}"
+                                      FontWeight="Bold"
+                                      Margin="0,0,10,5"/>
+                            <CheckBox Content="{x:Static properties:Resources.CheckSearchAtStartup}"
+                                      IsChecked="{Binding Settings.FindDllOnStartup}"
+                                      FontWeight="Bold"
+                                      Margin="0,0,10,5"/>
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="0,0,10,5">
+                                <CheckBox Content="Proxy"
+                                          IsChecked="{Binding Settings.Proxy.Enable}"
+                                          FontWeight="Bold"
+                                          Margin="0,0,5,0"/>
+                                <TextBox Width="100"
+                                         Text="{Binding Settings.Proxy.Server}"/>
+                                <TextBox Width="50"
+                                         Text="{Binding Settings.Proxy.Port}"/>
+                            </StackPanel>
+                        </WrapPanel>
+                    </GroupBox>
+                    <GroupBox Header="{x:Static properties:Resources.GroupTargetHeader}"
+                              Margin="2"
+                              Grid.Row="1">
+                        <DataGrid ItemsSource="{Binding Settings.TargetPathList, Mode=TwoWay}"
+                                      AutoGenerateColumns="False"
+                                      HeadersVisibility="Column"
+                                      Grid.Row="2">
+                            <DataGrid.Columns>
+                                <DataGridCheckBoxColumn Header="{x:Static properties:Resources.ColEnable}"
+                                                        ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                        EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                        Binding="{Binding Enable, UpdateSourceTrigger=PropertyChanged}" />
+                                <DataGridTextColumn Header="{x:Static properties:Resources.ColPath}"
+                                                        Binding="{Binding Path, UpdateSourceTrigger=PropertyChanged}"
+                                                        Width="*"/>
+                                <DataGridTemplateColumn Header="{x:Static properties:Resources.ColEdit}">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid HorizontalAlignment="Right">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto"/>
+                                                    <ColumnDefinition Width="auto"/>
+                                                    <ColumnDefinition Width="auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <!--行追加ボタン-->
+                                                <Button Grid.Column="1"
+                                                            Command="{Binding DataContext.AddTargetPathCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                            CommandParameter="{Binding}"
+                                                            Padding="2" 
+                                                            Margin="0,0,2,0">
+                                                    <Rectangle Width="16" 
+                                                                   Height="16">
+                                                        <Rectangle.Fill>
+                                                            <VisualBrush Visual="{StaticResource appbar_add}" />
+                                                        </Rectangle.Fill>
+                                                    </Rectangle>
+                                                </Button>
+                                                <!--行削除ボタン-->
+                                                <Button Grid.Column="2"
+                                                            Command="{Binding DataContext.DeleteTargetPathCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                            CommandParameter="{Binding}"
+                                                            Padding="2" 
+                                                            Margin="0,0,0,0">
+                                                    <Rectangle Width="16" 
+                                                                   Height="3">
+                                                        <Rectangle.Fill>
+                                                            <VisualBrush Visual="{StaticResource appbar_minus}" />
+                                                        </Rectangle.Fill>
+                                                    </Rectangle>
+                                                </Button>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                    <GroupBox Header="{x:Static properties:Resources.GroupIgnoreHeader}" 
+                              Margin="2"
+                              Grid.Row="2">
+                        <DataGrid ItemsSource="{Binding Settings.IgnorePathList, Mode=TwoWay}"
+                                      AutoGenerateColumns="False"
+                                      HeadersVisibility="Column"
+                                      Grid.Row="2">
+                            <DataGrid.Columns>
+                                <DataGridCheckBoxColumn Header="{x:Static properties:Resources.ColEnable}"
+                                                            ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                            Binding="{Binding Enable, UpdateSourceTrigger=PropertyChanged}" />
+                                <DataGridTextColumn Header="{x:Static properties:Resources.ColPath}"
+                                                    Binding="{Binding Path, UpdateSourceTrigger=PropertyChanged}"
+                                                    Width="*"/>
+                                <DataGridCheckBoxColumn Header="FFACE"
+                                                        ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                        EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                        Binding="{Binding FFACE, UpdateSourceTrigger=PropertyChanged}" 
+                                                        Width="auto"/>
+                                <DataGridCheckBoxColumn Header="FFACETools"
+                                                        ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                        EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                        Binding="{Binding FFACETools, UpdateSourceTrigger=PropertyChanged}" 
+                                                        Width="auto"/>
+                                <DataGridCheckBoxColumn Header="EliteAPI"
+                                                        ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                        EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                        Binding="{Binding EliteAPI, UpdateSourceTrigger=PropertyChanged}" 
+                                                        Width="auto"/>
+                                <DataGridCheckBoxColumn Header="EliteMMOAPI"
+                                                        ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                        EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                                        Binding="{Binding EliteMMOAPI, UpdateSourceTrigger=PropertyChanged}" 
+                                                        Width="auto"/>
+                                <DataGridTemplateColumn Header="{x:Static properties:Resources.ColEdit}">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Grid HorizontalAlignment="Right">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="auto"/>
+                                                    <ColumnDefinition Width="auto"/>
+                                                    <ColumnDefinition Width="auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <!--行追加ボタン-->
+                                                <Button Grid.Column="1"
+                                                            Command="{Binding DataContext.AddIgnorePathCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                            CommandParameter="{Binding}"
+                                                            Padding="2" 
+                                                            Margin="0,0,2,0">
+                                                    <Rectangle Width="16" 
+                                                                   Height="16">
+                                                        <Rectangle.Fill>
+                                                            <VisualBrush Visual="{StaticResource appbar_add}" />
+                                                        </Rectangle.Fill>
+                                                    </Rectangle>
+                                                </Button>
+                                                <!--行削除ボタン-->
+                                                <Button Grid.Column="2"
+                                                            Command="{Binding DataContext.DeleteIgnorePathCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                            CommandParameter="{Binding}"
+                                                            Padding="2" 
+                                                            Margin="0,0,0,0">
+                                                    <Rectangle Width="16" 
+                                                                   Height="3">
+                                                        <Rectangle.Fill>
+                                                            <VisualBrush Visual="{StaticResource appbar_minus}" />
+                                                        </Rectangle.Fill>
+                                                    </Rectangle>
+                                                </Button>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="{x:Static properties:Resources.TabAboutHeader}"
+                     Controls:ControlsHelper.HeaderFontSize="15">
+                <Grid HorizontalAlignment="Center"
+                      VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" 
+                                HorizontalAlignment="Center"
+                                Grid.Row="0">
+                        <Image Source="/DllUpdater;component/Resources/DllUpdater.ico"
+                           Width="32"
+                           Height="32"
+                           Margin="0,0,5,0"/>
+                        <TextBlock Text="{Binding ApplicationName}"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Grid.Row="1">
+                        <TextBlock Text="Ver"
+                                   FontSize="15"
+                                   FontWeight="Bold"/>
+                        <TextBlock Text="{Binding ApplicationVersion}"
+                                   FontSize="15"
+                                   FontWeight="Bold"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Margin="0,0,0,10"
+                                Grid.Row="2">
+                        <TextBlock Text="{Binding ApplicationCopyright}"
+                               FontSize="15"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                Grid.Row="3">
+                        <Button Command="{Binding GitHubCommand}" 
+                                ToolTip="GitHubからソースを取得" 
+                                Margin="0,10,0,0">
+                            <StackPanel HorizontalAlignment="Stretch" 
+                                        Orientation="Horizontal">
+                                <Rectangle Width="16" 
+                                           Height="16" 
+                                           Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                    <Rectangle.OpacityMask>
+                                        <VisualBrush Stretch="Fill" 
+                                                     Visual="{DynamicResource appbar_social_github_octocat_solid}" />
+                                    </Rectangle.OpacityMask>
+                                </Rectangle>
+                                <TextBlock Text="{Binding UrlGitHub}" 
+                                           Margin="2,0,0,0" 
+                                           FontSize="15" 
+                                           FontWeight="Bold"></TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Controls:MetroWindow>

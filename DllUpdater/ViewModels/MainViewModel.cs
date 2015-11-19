@@ -1,0 +1,442 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ComponentModel;
+
+using Livet;
+using Livet.Commands;
+using Livet.Messaging;
+using Livet.Messaging.IO;
+using Livet.EventListeners;
+using Livet.Messaging.Windows;
+
+using DllUpdater.Models;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Reflection;
+using DllUpdater.Properties;
+
+namespace DllUpdater.ViewModels
+{
+    public class MainViewModel : ViewModel
+    {
+        /* コマンド、プロパティの定義にはそれぞれ 
+         * 
+         *  lvcom   : ViewModelCommand
+         *  lvcomn  : ViewModelCommand(CanExecute無)
+         *  llcom   : ListenerCommand(パラメータ有のコマンド)
+         *  llcomn  : ListenerCommand(パラメータ有のコマンド・CanExecute無)
+         *  lprop   : 変更通知プロパティ(.NET4.5ではlpropn)
+         *  
+         * を使用してください。
+         * 
+         * Modelが十分にリッチであるならコマンドにこだわる必要はありません。
+         * View側のコードビハインドを使用しないMVVMパターンの実装を行う場合でも、ViewModelにメソッドを定義し、
+         * LivetCallMethodActionなどから直接メソッドを呼び出してください。
+         * 
+         * ViewModelのコマンドを呼び出せるLivetのすべてのビヘイビア・トリガー・アクションは
+         * 同様に直接ViewModelのメソッドを呼び出し可能です。
+         */
+
+        /* ViewModelからViewを操作したい場合は、View側のコードビハインド無で処理を行いたい場合は
+         * Messengerプロパティからメッセージ(各種InteractionMessage)を発信する事を検討してください。
+         */
+
+        /* Modelからの変更通知などの各種イベントを受け取る場合は、PropertyChangedEventListenerや
+         * CollectionChangedEventListenerを使うと便利です。各種ListenerはViewModelに定義されている
+         * CompositeDisposableプロパティ(LivetCompositeDisposable型)に格納しておく事でイベント解放を容易に行えます。
+         * 
+         * ReactiveExtensionsなどを併用する場合は、ReactiveExtensionsのCompositeDisposableを
+         * ViewModelのCompositeDisposableプロパティに格納しておくのを推奨します。
+         * 
+         * LivetのWindowテンプレートではViewのウィンドウが閉じる際にDataContextDisposeActionが動作するようになっており、
+         * ViewModelのDisposeが呼ばれCompositeDisposableプロパティに格納されたすべてのIDisposable型のインスタンスが解放されます。
+         * 
+         * ViewModelを使いまわしたい時などは、ViewからDataContextDisposeActionを取り除くか、発動のタイミングをずらす事で対応可能です。
+         */
+
+        /* UIDispatcherを操作する場合は、DispatcherHelperのメソッドを操作してください。
+         * UIDispatcher自体はApp.xaml.csでインスタンスを確保してあります。
+         * 
+         * LivetのViewModelではプロパティ変更通知(RaisePropertyChanged)やDispatcherCollectionを使ったコレクション変更通知は
+         * 自動的にUIDispatcher上での通知に変換されます。変更通知に際してUIDispatcherを操作する必要はありません。
+         */
+        
+        public MainViewModel()
+        {
+            this.Settings = new Settings();
+            this.Dlls = new Dlls(this.Settings);
+
+            // バージョン情報の設定
+            var ver = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location);
+            this.ApplicationName = ver.ProductName;
+            this.ApplicationVersion = string.Format("{0}.{1}.{2}", ver.ProductMajorPart, ver.ProductMinorPart, ver.ProductBuildPart);
+            this.ApplicationCopyright = ver.LegalCopyright;
+            this.UrlGitHub = Constants.UrlGitHub;
+        }
+        public void Initialize()
+        {
+            var dllsListener = new PropertyChangedEventListener(this.Dlls, (sender, e) => {
+                if (e.PropertyName == "IsRunningVersionCheck" ||
+                    e.PropertyName == "IsRunningSearch" ||
+                    e.PropertyName == "IsRunningReplace"||
+                    e.PropertyName == "IsRunningDownload")
+                {
+                    VersionCheckCommand.RaiseCanExecuteChanged();
+                    SearchDllCommand.RaiseCanExecuteChanged();
+                    AllCheckCommand.RaiseCanExecuteChanged();
+                    ReplaceDllCommand.RaiseCanExecuteChanged();
+                    DownloadDllCommand.RaiseCanExecuteChanged();
+                }
+                RaisePropertyChanged(e.PropertyName); 
+            });
+            CompositeDisposable.Add(dllsListener);
+
+            this.Dlls.ExecuteStartup();
+        }
+        public void Shutdown()
+        {
+            this.Settings.Save();
+        }
+
+        #region Settings変更通知プロパティ
+        private Settings _Settings;
+        public Settings Settings
+        {
+            get
+            { return _Settings; }
+            set
+            { 
+                if (_Settings == value)
+                    return;
+                _Settings = value;
+                RaisePropertyChanged("Settings");
+            }
+        }
+        #endregion
+        #region Dlls変更通知プロパティ
+        private Dlls _Dlls;
+        public Dlls Dlls
+        {
+            get
+            { return _Dlls; }
+            set
+            { 
+                if (_Dlls == value)
+                    return;
+                _Dlls = value;
+                RaisePropertyChanged("Dlls");
+            }
+        }
+        #endregion
+        #region ApplicationName変更通知プロパティ
+        private string _ApplicationName;
+        public string ApplicationName
+        {
+            get
+            { return _ApplicationName; }
+            set
+            {
+                if (_ApplicationName == value)
+                    return;
+                _ApplicationName = value;
+                RaisePropertyChanged("ApplicationName");
+            }
+        }
+        #endregion
+        #region ApplicationVersion変更通知プロパティ
+        private string _ApplicationVersion;
+        public string ApplicationVersion
+        {
+            get
+            { return _ApplicationVersion; }
+            set
+            { 
+                if (_ApplicationVersion == value)
+                    return;
+                _ApplicationVersion = value;
+                RaisePropertyChanged("ApplicationVersion");
+            }
+        }
+        #endregion
+        #region ApplicationCopyright変更通知プロパティ
+        private string _ApplicationCopyright;
+        public string ApplicationCopyright
+        {
+            get
+            { return _ApplicationCopyright; }
+            set
+            { 
+                if (_ApplicationCopyright == value)
+                    return;
+                _ApplicationCopyright = value;
+                RaisePropertyChanged("ApplicationCopyright");
+            }
+        }
+        #endregion
+
+        #region UrlGitHub変更通知プロパティ
+        private string _UrlGitHub;
+        public string UrlGitHub
+        {
+            get
+            { return _UrlGitHub; }
+            set
+            { 
+                if (_UrlGitHub == value)
+                    return;
+                _UrlGitHub = value;
+                RaisePropertyChanged("UrlGitHub");
+            }
+        }
+        #endregion
+
+
+        #region VersionCheckCommand
+        private ViewModelCommand _VersionCheckCommand;
+        public ViewModelCommand VersionCheckCommand
+        {
+            get
+            {
+                if (_VersionCheckCommand == null)
+                {
+                    _VersionCheckCommand = new ViewModelCommand(VersionCheck, CanVersionCheck);
+                }
+                return _VersionCheckCommand;
+            }
+        }
+        public bool CanVersionCheck()
+        {
+            return !this.Dlls.IsRunningSearch &&
+                   !this.Dlls.IsRunningReplace &&
+                   !this.Dlls.IsRunningDownload;
+        }
+        public void VersionCheck()
+        {
+            this.Dlls.ExecuteVersionCheck();
+        }
+        #endregion
+        #region DownloadDllCommand
+        private ViewModelCommand _DownloadDllCommand;
+        public ViewModelCommand DownloadDllCommand
+        {
+            get
+            {
+                if (_DownloadDllCommand == null)
+                {
+                    _DownloadDllCommand = new ViewModelCommand(DownloadDll, CanDownloadDll);
+                }
+                return _DownloadDllCommand;
+            }
+        }
+        public bool CanDownloadDll()
+        {
+            return !this.Dlls.IsRunningVersionCheck &&
+                   !this.Dlls.IsRunningSearch &&
+                   !this.Dlls.IsRunningReplace;
+        }
+        public void DownloadDll()
+        {
+            this.Dlls.ExecuteDownload();
+        }
+        #endregion
+        #region SearchDllCommand
+        private ViewModelCommand _SearchDllCommand;
+        public ViewModelCommand SearchDllCommand
+        {
+            get
+            {
+                if (_SearchDllCommand == null)
+                {
+                    _SearchDllCommand = new ViewModelCommand(SearchDll, CanSearchDll);
+                }
+                return _SearchDllCommand;
+            }
+        }
+        public bool CanSearchDll()
+        {
+            return !this.Dlls.IsRunningVersionCheck &&
+                   !this.Dlls.IsRunningReplace &&
+                   !this.Dlls.IsRunningDownload;
+        }
+        public void SearchDll()
+        {
+            if (!this.Dlls.SearchCheck())
+            {
+                Messenger.Raise(new InformationMessage(Resources.MsgSpecifyTargetPath, Resources.MsgWarning,System.Windows.MessageBoxImage.Warning, "Information"));
+            }
+            this.Dlls.ExecuteSearch();
+        }
+        #endregion
+        #region AllCheckCommand
+        private ViewModelCommand _AllCheckCommand;
+        public ViewModelCommand AllCheckCommand
+        {
+            get
+            {
+                if (_AllCheckCommand == null)
+                {
+                    _AllCheckCommand = new ViewModelCommand(AllCheck, CanAllCheck);
+                }
+                return _AllCheckCommand;
+            }
+        }
+        public bool CanAllCheck()
+        {
+            return !this.Dlls.IsRunningVersionCheck && 
+                   !this.Dlls.IsRunningSearch &&
+                   !this.Dlls.IsRunningReplace &&
+                   !this.Dlls.IsRunningDownload;
+        }
+        public void AllCheck()
+        {
+            this.Dlls.AllCheck();
+        }
+        #endregion
+        #region ReplaceDllCommand
+        private ViewModelCommand _ReplaceDllCommand;
+        public ViewModelCommand ReplaceDllCommand
+        {
+            get
+            {
+                if (_ReplaceDllCommand == null)
+                {
+                    _ReplaceDllCommand = new ViewModelCommand(ReplaceDll, CanReplaceDll);
+                }
+                return _ReplaceDllCommand;
+            }
+        }
+        public bool CanReplaceDll()
+        {
+            return !this.Dlls.IsRunningVersionCheck && 
+                   !this.Dlls.IsRunningSearch &&
+                   !this.Dlls.IsRunningDownload;
+        }
+        public void ReplaceDll()
+        {
+            this.Dlls.ExecuteReplace();    
+        }
+        #endregion
+
+        #region AddTargetPathCommand
+        private ListenerCommand<object> _AddTargetPathCommand;
+        public ListenerCommand<object> AddTargetPathCommand
+        {
+            get
+            {
+                if (_AddTargetPathCommand == null)
+                {
+                    _AddTargetPathCommand = new ListenerCommand<object>(AddTargetPath);
+                }
+                return _AddTargetPathCommand;
+            }
+        }
+        public void AddTargetPath(object parameter)
+        {
+            int index = Settings.TargetPathList.IndexOf(parameter as PathInfo);
+            AddPath(Settings.TargetPathList, index);
+        }
+        #endregion
+        #region DeleteTargetPathCommand
+        private ListenerCommand<object> _DeleteTargetPathCommand;
+        public ListenerCommand<object> DeleteTargetPathCommand
+        {
+            get
+            {
+                if (_DeleteTargetPathCommand == null)
+                {
+                    _DeleteTargetPathCommand = new ListenerCommand<object>(DeleteTargetPath);
+                }
+                return _DeleteTargetPathCommand;
+            }
+        }
+        public void DeleteTargetPath(object parameter)
+        {
+            if (Settings.TargetPathList.Count > 1)
+            {
+                int index = Settings.TargetPathList.IndexOf(parameter as PathInfo);
+                DeletePath(Settings.TargetPathList, index);
+            }
+        }
+        #endregion
+        #region AddIgnorePathCommand
+        private ListenerCommand<object> _AddIgnorePathCommand;
+        public ListenerCommand<object> AddIgnorePathCommand
+        {
+            get
+            {
+                if (_AddIgnorePathCommand == null)
+                {
+                    _AddIgnorePathCommand = new ListenerCommand<object>(AddIgnorePath);
+                }
+                return _AddIgnorePathCommand;
+            }
+        }
+        public void AddIgnorePath(object parameter)
+        {
+            int index = Settings.IgnorePathList.IndexOf(parameter as PathInfo);
+            AddPath(Settings.IgnorePathList, index);
+        }
+        #endregion
+        #region DeleteIgnorePathCommand
+        private ListenerCommand<object> _DeleteIgnorePathCommand;
+        public ListenerCommand<object> DeleteIgnorePathCommand
+        {
+            get
+            {
+                if (_DeleteIgnorePathCommand == null)
+                {
+                    _DeleteIgnorePathCommand = new ListenerCommand<object>(DeleteIgnorePath);
+                }
+                return _DeleteIgnorePathCommand;
+            }
+        }
+        public void DeleteIgnorePath(object parameter)
+        {
+            if (Settings.IgnorePathList.Count > 1)
+            {
+                int index = Settings.IgnorePathList.IndexOf(parameter as PathInfo);
+                DeletePath(Settings.IgnorePathList, index);
+            }
+        }
+        #endregion
+
+        #region GitHubCommand
+        private ViewModelCommand _GitHubCommand;
+        public ViewModelCommand GitHubCommand
+        {
+            get
+            {
+                if (_GitHubCommand == null)
+                {
+                    _GitHubCommand = new ViewModelCommand(GitHub);
+                }
+                return _GitHubCommand;
+            }
+        }
+        public void GitHub()
+        {
+            System.Diagnostics.Process.Start(Constants.UrlGitHub);
+        }
+        #endregion
+
+        private void AddPath(ObservableCollection<PathInfo> iList,int iIndex)
+        {
+            if (iIndex > -1 && iIndex < iList.Count)
+            {
+                iList.Insert(iIndex + 1, new PathInfo(true, string.Empty, true, true, true, true));
+            }
+        }
+        private void DeletePath(ObservableCollection<PathInfo> iList, int iIndex)
+        {
+            if (iIndex > -1 && iIndex < iList.Count)
+            {
+                iList.RemoveAt(iIndex);
+            }
+        }
+
+
+        
+    }
+}
