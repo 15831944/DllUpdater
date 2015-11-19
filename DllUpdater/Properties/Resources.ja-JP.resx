@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ButtonChekAllToolTip" xml:space="preserve">
+    <value>すべてチェック/解除</value>
+    <comment>すべてチェック/解除</comment>
+  </data>
+  <data name="ButtonDownloadToolTip" xml:space="preserve">
+    <value>最新版をダウンロード</value>
+    <comment>最新版をダウンロード</comment>
+  </data>
+  <data name="ButtonReplaceToolTip" xml:space="preserve">
+    <value>チェックしたDLLを置換</value>
+    <comment>チェックしたDLLを置換</comment>
+  </data>
+  <data name="ButtonSearchToolTip" xml:space="preserve">
+    <value>DLLの検索</value>
+    <comment>DLLの検索</comment>
+  </data>
+  <data name="ButtonVersionCheckToolTip" xml:space="preserve">
+    <value>最新版があるかチェック</value>
+    <comment>最新版があるかチェック</comment>
+  </data>
+  <data name="CheckDownloadAtStartup" xml:space="preserve">
+    <value>起動時に最新のDLLをダウンロードする</value>
+    <comment>起動時に最新のDLLをダウンロードする</comment>
+  </data>
+  <data name="CheckSearchAtStartup" xml:space="preserve">
+    <value>起動時に置換対象のDLLを検索する</value>
+    <comment>起動時に置換対象のDLLを検索する</comment>
+  </data>
+  <data name="ColEdit" xml:space="preserve">
+    <value>編集</value>
+    <comment>編集</comment>
+  </data>
+  <data name="ColEnable" xml:space="preserve">
+    <value>有効</value>
+    <comment>有効</comment>
+  </data>
+  <data name="ColPath" xml:space="preserve">
+    <value>パス</value>
+    <comment>パス</comment>
+  </data>
+  <data name="ColReplace" xml:space="preserve">
+    <value>置換</value>
+    <comment>置換</comment>
+  </data>
+  <data name="ColVersion" xml:space="preserve">
+    <value>バージョン</value>
+    <comment>バージョン</comment>
+  </data>
+  <data name="GroupGlobalHeader" xml:space="preserve">
+    <value>全般</value>
+    <comment>全般</comment>
+  </data>
+  <data name="GroupIgnoreHeader" xml:space="preserve">
+    <value>除外パス</value>
+    <comment>除外パス</comment>
+  </data>
+  <data name="GroupTargetHeader" xml:space="preserve">
+    <value>対象パス</value>
+    <comment>対象パス</comment>
+  </data>
+  <data name="MsgCheckingFor" xml:space="preserve">
+    <value>{0}のチェック中。{1}</value>
+    <comment>{0}のチェック中。{1}</comment>
+  </data>
+  <data name="MsgDllNotFound" xml:space="preserve">
+    <value>DLLを発見できませんでした</value>
+    <comment>DLLを発見できませんでした</comment>
+  </data>
+  <data name="MsgDownloadCompleted" xml:space="preserve">
+    <value>{0}がダウンロードされました。</value>
+    <comment>{0}がダウンロードされました。</comment>
+  </data>
+  <data name="MsgDownloading" xml:space="preserve">
+    <value>{0}のダウンロード中</value>
+    <comment>{0}のダウンロード中</comment>
+  </data>
+  <data name="MsgDownloadNotNecessary" xml:space="preserve">
+    <value>ダウンロードが必要なDLLはありません。</value>
+    <comment>ダウンロードが必要なDLLはありません。</comment>
+  </data>
+  <data name="MsgError" xml:space="preserve">
+    <value>エラー ： {0}</value>
+    <comment>エラー ： {0}</comment>
+  </data>
+  <data name="MsgErrorDownload" xml:space="preserve">
+    <value>エラー : ダウンロード中にエラーが発生しました。{0}</value>
+    <comment>エラー : ダウンロード中にエラーが発生しました。{0}</comment>
+  </data>
+  <data name="MsgErrorReplace" xml:space="preserve">
+    <value>エラー： {0}のコピー中にエラーが発生しました。</value>
+    <comment>エラー：{0}のコピー中にエラーが発生しました。</comment>
+  </data>
+  <data name="MsgErrorSearch" xml:space="preserve">
+    <value>エラー : DLL検索中にエラーが発生しました。{0}</value>
+    <comment>エラー : DLL検索中にエラーが発生しました。{0}</comment>
+  </data>
+  <data name="MsgErrorVersionCheck" xml:space="preserve">
+    <value>エラー : バージョンチェック中にエラーが発生しました。{0}</value>
+    <comment>エラー : バージョンチェック中にエラーが発生しました。{0}</comment>
+  </data>
+  <data name="MsgExecuteAfterDownload" xml:space="preserve">
+    <value>DLLをダウンロードしてから実行してください。</value>
+    <comment>DLLをダウンロードしてから実行してください。</comment>
+  </data>
+  <data name="MsgFoundDll" xml:space="preserve">
+    <value>{0}件のDLLを発見しました。</value>
+    <comment>{0}件のDLLを発見しました。</comment>
+  </data>
+  <data name="MsgNowCheckingVersion" xml:space="preserve">
+    <value>{0}のバージョンチェック中</value>
+    <comment>{0}のバージョンチェック中</comment>
+  </data>
+  <data name="MsgReplace" xml:space="preserve">
+    <value>置換中 ： {0}</value>
+    <comment>置換中 ： {0}</comment>
+  </data>
+  <data name="MsgReplaced" xml:space="preserve">
+    <value>{0}件のDLLが置換されました。</value>
+    <comment>{0}件のDLLが置換されました。</comment>
+  </data>
+  <data name="MsgRequiredVersion" xml:space="preserve">
+    <value>{0}のバージョンアップが必要です。</value>
+    <comment>{0}のバージョンアップが必要です。</comment>
+  </data>
+  <data name="MsgSpecifyTargetPath" xml:space="preserve">
+    <value>ターゲットパスを指定してください。</value>
+    <comment>ターゲットパスを指定してください。</comment>
+  </data>
+  <data name="MsgVersionUpFor" xml:space="preserve">
+    <value>{0}のバージョンアップ中。{1}</value>
+    <comment>{0}のバージョンアップ中。{1}</comment>
+  </data>
+  <data name="MsgVersionupNotNecessary" xml:space="preserve">
+    <value>バージョンアップが必要なDLLはありません。</value>
+    <comment>バージョンアップが必要なDLLはありません。</comment>
+  </data>
+  <data name="MsgWarning" xml:space="preserve">
+    <value>警告</value>
+    <comment>警告</comment>
+  </data>
+  <data name="MsgXPathNotExist" xml:space="preserve">
+    <value>指定されたXPathは存在しません。</value>
+    <comment>指定されたXPathは存在しません。</comment>
+  </data>
+  <data name="TabAboutHeader" xml:space="preserve">
+    <value>バージョン情報</value>
+    <comment>バージョン情報</comment>
+  </data>
+  <data name="TabMainHeader" xml:space="preserve">
+    <value>メイン</value>
+    <comment>メイン</comment>
+  </data>
+  <data name="TabSettingsHeader" xml:space="preserve">
+    <value>設定</value>
+    <comment>設定</comment>
+  </data>
+</root>
