@@ -2,6 +2,10 @@
 
 DllUpdaterは、FFACE.dll、FFACETools.dll、EliteAPI.dll、EliteMMO.API.dllの最新バージョンをダウンロードし、指定されたフォルダのDLLを置換するユーティリティです。
 
+[![Develop status](https://ci.appveyor.com/api/projects/status/3a023qh386f722y5?svg=true&passingText=master%20-%20OK&failingText=master%20-%20NG)](https://ci.appveyor.com/project/rohme/dllupdater)
+[![Develop status](https://ci.appveyor.com/api/projects/status/9xeqrkx7xv39vw0a?svg=true&passingText=develop%20-%20OK&failingText=develop%20-%20NG)](https://ci.appveyor.com/project/rohme/dllupdater-xfnq9)
+
+
 ![全体イメージ](http://i.imgur.com/bJTipVs.png)
 
 ## 使用方法
@@ -15,7 +19,7 @@ DllUpdaterは、FFACE.dll、FFACETools.dll、EliteAPI.dll、EliteMMO.API.dllの�
 ### メイン画面
 ![メイン画面](http://i.imgur.com/bJTipVs.png)
 * バージョン
-![バージョン](http://i.imgur.com/p4oZrgm.png)
+![バージョン](http://i.imgur.com/p4oZrgm.png)m
 現在、DllUpdaterが取り込んでいるDLLのバージョンを表示しています。  
 チェックをオフにする事で、オフにしたDLLの機能（バージョンチェック・検索・置換）を停止させる事ができます。必要の無いものはチェックを外しておきましょう。
 
@@ -56,6 +60,28 @@ DLLを検索する対象としたくないパスを指定します。（サブ�
 たとえば、EnjoyFishingは独自のFFACEToolsを使用しており、FFACETools以外を更新したい。  
 その場合には以下のように、FFACEToolsのみ除外することができます。
 ![例](http://i.imgur.com/r1jR3Xv.png)
+
+## バージョンチェック
+DllUpdaterはバージョンの変更があったのかを判断するのに、各DLLのリリースページを監視して判断しています。  
+もし、リリースページがレイアウト変更された等で、バージョンアップが判定できなくなった場合には、DllUpdater.iniファイルの設定を変更してください。  
+以下にFFACEの場合の例を説明します。
+```INI
+[FFACE]
+Enable = 1
+CheckUrl = http://delvl.ffevo.net/Lolwutt/FFACE4-Public/blob/master/FFACE.dll
+XPath = .//*[@id='tree-holder']/ul[2]/li/div[1]/div[1]/a
+XPathLastestData = c5349a5a
+DownloadUrl = http://delvl.ffevo.net/Lolwutt/FFACE4-Public/raw/master/FFACE.dll
+```
+| Key              | 説明                                                                                                |
+|------------------|-----------------------------------------------------------------------------------------------------|
+| Enable           | メイン画面上部の有効チェックの値が格納される。<br>0:無効 1:有効                                         |
+| CheckUrl         | リリースページ等、バージョンアップがあったときに変更される文字列がある<br>URLを指定する。               |
+| XPath            | CheckUrlから取得したHTMLの、どの要素が変更されたらバージョンアップと<br>判断するかを、XPathで指定する。 |
+| XPathLastestData | 最後に取得したXPathの内容。<br>初期化したい場合以外、特にいじる必要はない。                             |
+| DownloadUrl      | バージョンアップが必要だと判断された場合の、ダウンロードURLを指定する。                             |
+
+INIファイルを編集する場合には、DllUpdaterを終了してからにしてください。
 
 ## インストール・アンインストール
 1. [こちら](https://github.com/rohme/DllUpdater/releases)から、最新版のバイナリを取得する。
