@@ -57,14 +57,14 @@ namespace DllUpdater.Models
         private const string IniDefaultDownloadUrlFFACETools = "https://github.com/h1pp0/FFACETools_ffevo.net/raw/master/Binary/FFACETools.dll";
         // DLL Default EliteAPI
         private const bool IniDefaultEnableEliteAPI = true;
-        private const string IniDefaultCheckUrlEliteAPI = "http://ext.elitemmonetwork.com/downloads/eliteapi/";
-        private const string IniDefaultXPathEliteAPI = ".//*[@id='download']";
+        private const string IniDefaultCheckUrlEliteAPI = "http://ext.elitemmonetwork.com/downloads/eliteapi/index.php?v";
+        private const string IniDefaultXPathEliteAPI = ".";
         private const string IniDefaultXPathDataEliteAPI = "";
         private const string IniDefaultDownloadUrlEliteAPI = "http://ext.elitemmonetwork.com/downloads/eliteapi/EliteAPI.dll";
         // DLL Default EliteMOAPI
         private const bool IniDefaultEnableEliteMMOAPI = true;
-        private const string IniDefaultCheckUrlEliteMMOAPI = "http://ext.elitemmonetwork.com/downloads/elitemmo_api/";
-        private const string IniDefaultXPathEliteMMOAPI = ".//*[@id='download']";
+        private const string IniDefaultCheckUrlEliteMMOAPI = "http://ext.elitemmonetwork.com/downloads/elitemmo_api/index.php?v";
+        private const string IniDefaultXPathEliteMMOAPI = ".";
         private const string IniDefaultXPathDataEliteMMOAPI = "";
         private const string IniDefaultDownloadUrlEliteMMOAPI = "http://ext.elitemmonetwork.com/downloads/elitemmo_api/EliteMMO.API.dll";
         #endregion
