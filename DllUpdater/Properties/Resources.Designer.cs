@@ -61,7 +61,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Check all or release all に類似しているローカライズされた文字列を検索します。
+        ///   すべてチェック/解除 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ButtonChekAllToolTip {
             get {
@@ -70,7 +70,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Download newer version に類似しているローカライズされた文字列を検索します。
+        ///   最新版をダウンロード に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ButtonDownloadToolTip {
             get {
@@ -79,7 +79,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Replace the checked dll に類似しているローカライズされた文字列を検索します。
+        ///   チェックしたDLLを置換 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ButtonReplaceToolTip {
             get {
@@ -88,7 +88,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Search for dll に類似しているローカライズされた文字列を検索します。
+        ///   DLLの検索 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ButtonSearchToolTip {
             get {
@@ -97,7 +97,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Check newer version に類似しているローカライズされた文字列を検索します。
+        ///   最新版があるかチェック に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ButtonVersionCheckToolTip {
             get {
@@ -106,7 +106,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Download the latest DLL at startup に類似しているローカライズされた文字列を検索します。
+        ///   起動時に最新のDLLをダウンロードする に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string CheckDownloadAtStartup {
             get {
@@ -115,7 +115,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Search the DLL on startup に類似しているローカライズされた文字列を検索します。
+        ///   起動時に置換対象のDLLを検索する に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string CheckSearchAtStartup {
             get {
@@ -124,7 +124,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Edit に類似しているローカライズされた文字列を検索します。
+        ///   編集 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ColEdit {
             get {
@@ -133,7 +133,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Enable に類似しているローカライズされた文字列を検索します。
+        ///   有効 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ColEnable {
             get {
@@ -142,7 +142,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Path に類似しているローカライズされた文字列を検索します。
+        ///   パス に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ColPath {
             get {
@@ -151,7 +151,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Replace に類似しているローカライズされた文字列を検索します。
+        ///   置換 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ColReplace {
             get {
@@ -160,7 +160,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Version に類似しているローカライズされた文字列を検索します。
+        ///   バージョン に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string ColVersion {
             get {
@@ -169,7 +169,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Global Settings に類似しているローカライズされた文字列を検索します。
+        ///   全般 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string GroupGlobalHeader {
             get {
@@ -178,7 +178,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Ignore Path に類似しているローカライズされた文字列を検索します。
+        ///   除外パス に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string GroupIgnoreHeader {
             get {
@@ -187,7 +187,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Target Path に類似しているローカライズされた文字列を検索します。
+        ///   対象パス に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string GroupTargetHeader {
             get {
@@ -196,7 +196,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Checking for {0}. {1} に類似しているローカライズされた文字列を検索します。
+        ///   {0}のチェック中。{1} に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MsgCheckingFor {
             get {
@@ -205,7 +205,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Dll not found に類似しているローカライズされた文字列を検索します。
+        ///   DLLを発見できませんでした に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MsgDllNotFound {
             get {
@@ -214,7 +214,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   {0} Download completed に類似しているローカライズされた文字列を検索します。
+        ///   {0}がダウンロードされました。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MsgDownloadCompleted {
             get {
@@ -223,7 +223,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Downloading {0} に類似しているローカライズされた文字列を検索します。
+        ///   {0}のダウンロード中 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MsgDownloading {
             get {
@@ -232,7 +232,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Download is not necessary に類似しているローカライズされた文字列を検索します。
+        ///   ダウンロードが必要なDLLはありません。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MsgDownloadNotNecessary {
             get {
@@ -241,7 +241,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Error : {0} に類似しているローカライズされた文字列を検索します。
+        ///   エラー ： {0} に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MsgError {
             get {
@@ -250,7 +250,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Error : An error occurred while downloading {0} に類似しているローカライズされた文字列を検索します。
+        ///   エラー : ダウンロード中にエラーが発生しました。{0} に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MsgErrorDownload {
             get {
@@ -259,7 +259,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Error : An error occurred while replase. {0} に類似しているローカライズされた文字列を検索します。
+        ///   エラー： {0}のコピー中にエラーが発生しました。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MsgErrorReplace {
             get {
@@ -268,7 +268,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Error : An error occurred while searching {0} に類似しているローカライズされた文字列を検索します。
+        ///   エラー : DLL検索中にエラーが発生しました。{0} に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MsgErrorSearch {
             get {
@@ -277,7 +277,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Error : An error occurred while version check {0} に類似しているローカライズされた文字列を検索します。
+        ///   エラー : バージョンチェック中にエラーが発生しました。{0} に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MsgErrorVersionCheck {
             get {
@@ -286,7 +286,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Please execute after downloading the DLL. に類似しているローカライズされた文字列を検索します。
+        ///   DLLをダウンロードしてから実行してください。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MsgExecuteAfterDownload {
             get {
@@ -295,7 +295,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Found {0} DLLs に類似しているローカライズされた文字列を検索します。
+        ///   {0}件のDLLを発見しました。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MsgFoundDll {
             get {
@@ -304,7 +304,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Now checking version for {0} に類似しているローカライズされた文字列を検索します。
+        ///   {0}のバージョンチェック中 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MsgNowCheckingVersion {
             get {
@@ -313,7 +313,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Replace : {0} に類似しているローカライズされた文字列を検索します。
+        ///   置換中 ： {0} に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MsgReplace {
             get {
@@ -322,7 +322,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   {0} dlls has been replaced. に類似しているローカライズされた文字列を検索します。
+        ///   {0}件のDLLが置換されました。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MsgReplaced {
             get {
@@ -331,7 +331,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   required version up for {0} に類似しているローカライズされた文字列を検索します。
+        ///   {0}のバージョンアップが必要です。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MsgRequiredVersion {
             get {
@@ -340,7 +340,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Please specify the target path に類似しているローカライズされた文字列を検索します。
+        ///   ターゲットパスを指定してください。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MsgSpecifyTargetPath {
             get {
@@ -349,7 +349,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Version up for {0}. {1} に類似しているローカライズされた文字列を検索します。
+        ///   {0}のバージョンアップ中。{1} に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MsgVersionUpFor {
             get {
@@ -358,7 +358,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Version up is not necessary に類似しているローカライズされた文字列を検索します。
+        ///   バージョンアップが必要なDLLはありません。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MsgVersionupNotNecessary {
             get {
@@ -367,7 +367,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Warning に類似しているローカライズされた文字列を検索します。
+        ///   警告 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MsgWarning {
             get {
@@ -376,7 +376,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   The specified XPath does not exist. に類似しているローカライズされた文字列を検索します。
+        ///   指定されたXPathは存在しません。 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string MsgXPathNotExist {
             get {
@@ -385,7 +385,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   About に類似しているローカライズされた文字列を検索します。
+        ///   バージョン情報 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TabAboutHeader {
             get {
@@ -394,7 +394,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Main に類似しているローカライズされた文字列を検索します。
+        ///   メイン に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TabMainHeader {
             get {
@@ -403,7 +403,7 @@ namespace DllUpdater.Properties {
         }
         
         /// <summary>
-        ///   Settings に類似しているローカライズされた文字列を検索します。
+        ///   設定 に類似しているローカライズされた文字列を検索します。
         /// </summary>
         public static string TabSettingsHeader {
             get {

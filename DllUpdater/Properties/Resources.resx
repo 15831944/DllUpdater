@@ -118,159 +118,159 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ButtonChekAllToolTip" xml:space="preserve">
-    <value>Check all or release all</value>
+    <value>すべてチェック/解除</value>
     <comment>すべてチェック/解除</comment>
   </data>
   <data name="ButtonDownloadToolTip" xml:space="preserve">
-    <value>Download newer version</value>
+    <value>最新版をダウンロード</value>
     <comment>最新版をダウンロード</comment>
   </data>
   <data name="ButtonReplaceToolTip" xml:space="preserve">
-    <value>Replace the checked dll</value>
+    <value>チェックしたDLLを置換</value>
     <comment>チェックしたDLLを置換</comment>
   </data>
   <data name="ButtonSearchToolTip" xml:space="preserve">
-    <value>Search for dll</value>
+    <value>DLLの検索</value>
     <comment>DLLの検索</comment>
   </data>
   <data name="ButtonVersionCheckToolTip" xml:space="preserve">
-    <value>Check newer version</value>
+    <value>最新版があるかチェック</value>
     <comment>最新版があるかチェック</comment>
   </data>
   <data name="CheckDownloadAtStartup" xml:space="preserve">
-    <value>Download the latest DLL at startup</value>
+    <value>起動時に最新のDLLをダウンロードする</value>
     <comment>起動時に最新のDLLをダウンロードする</comment>
   </data>
   <data name="CheckSearchAtStartup" xml:space="preserve">
-    <value>Search the DLL on startup</value>
+    <value>起動時に置換対象のDLLを検索する</value>
     <comment>起動時に置換対象のDLLを検索する</comment>
   </data>
   <data name="ColEdit" xml:space="preserve">
-    <value>Edit</value>
+    <value>編集</value>
     <comment>編集</comment>
   </data>
   <data name="ColEnable" xml:space="preserve">
-    <value>Enable</value>
+    <value>有効</value>
     <comment>有効</comment>
   </data>
   <data name="ColPath" xml:space="preserve">
-    <value>Path</value>
+    <value>パス</value>
     <comment>パス</comment>
   </data>
   <data name="ColReplace" xml:space="preserve">
-    <value>Replace</value>
+    <value>置換</value>
     <comment>置換</comment>
   </data>
   <data name="ColVersion" xml:space="preserve">
-    <value>Version</value>
+    <value>バージョン</value>
     <comment>バージョン</comment>
   </data>
   <data name="GroupGlobalHeader" xml:space="preserve">
-    <value>Global Settings</value>
+    <value>全般</value>
     <comment>全般</comment>
   </data>
   <data name="GroupIgnoreHeader" xml:space="preserve">
-    <value>Ignore Path</value>
+    <value>除外パス</value>
     <comment>除外パス</comment>
   </data>
   <data name="GroupTargetHeader" xml:space="preserve">
-    <value>Target Path</value>
+    <value>対象パス</value>
     <comment>対象パス</comment>
   </data>
   <data name="MsgCheckingFor" xml:space="preserve">
-    <value>Checking for {0}. {1}</value>
+    <value>{0}のチェック中。{1}</value>
     <comment>{0}のチェック中。{1}</comment>
   </data>
   <data name="MsgDllNotFound" xml:space="preserve">
-    <value>Dll not found</value>
+    <value>DLLを発見できませんでした</value>
     <comment>DLLを発見できませんでした</comment>
   </data>
   <data name="MsgDownloadCompleted" xml:space="preserve">
-    <value>{0} Download completed</value>
+    <value>{0}がダウンロードされました。</value>
     <comment>{0}がダウンロードされました。</comment>
   </data>
   <data name="MsgDownloading" xml:space="preserve">
-    <value>Downloading {0}</value>
+    <value>{0}のダウンロード中</value>
     <comment>{0}のダウンロード中</comment>
   </data>
   <data name="MsgDownloadNotNecessary" xml:space="preserve">
-    <value>Download is not necessary</value>
+    <value>ダウンロードが必要なDLLはありません。</value>
     <comment>ダウンロードが必要なDLLはありません。</comment>
   </data>
   <data name="MsgError" xml:space="preserve">
-    <value>Error : {0}</value>
+    <value>エラー ： {0}</value>
     <comment>エラー ： {0}</comment>
   </data>
   <data name="MsgErrorDownload" xml:space="preserve">
-    <value>Error : An error occurred while downloading {0}</value>
+    <value>エラー : ダウンロード中にエラーが発生しました。{0}</value>
     <comment>エラー : ダウンロード中にエラーが発生しました。{0}</comment>
   </data>
   <data name="MsgErrorReplace" xml:space="preserve">
-    <value>Error : An error occurred while replase. {0}</value>
+    <value>エラー： {0}のコピー中にエラーが発生しました。</value>
     <comment>エラー：{0}のコピー中にエラーが発生しました。</comment>
   </data>
   <data name="MsgErrorSearch" xml:space="preserve">
-    <value>Error : An error occurred while searching {0}</value>
+    <value>エラー : DLL検索中にエラーが発生しました。{0}</value>
     <comment>エラー : DLL検索中にエラーが発生しました。{0}</comment>
   </data>
   <data name="MsgErrorVersionCheck" xml:space="preserve">
-    <value>Error : An error occurred while version check {0}</value>
+    <value>エラー : バージョンチェック中にエラーが発生しました。{0}</value>
     <comment>エラー : バージョンチェック中にエラーが発生しました。{0}</comment>
   </data>
   <data name="MsgExecuteAfterDownload" xml:space="preserve">
-    <value>Please execute after downloading the DLL.</value>
+    <value>DLLをダウンロードしてから実行してください。</value>
     <comment>DLLをダウンロードしてから実行してください。</comment>
   </data>
   <data name="MsgFoundDll" xml:space="preserve">
-    <value>Found {0} DLLs</value>
+    <value>{0}件のDLLを発見しました。</value>
     <comment>{0}件のDLLを発見しました。</comment>
   </data>
   <data name="MsgNowCheckingVersion" xml:space="preserve">
-    <value>Now checking version for {0}</value>
+    <value>{0}のバージョンチェック中</value>
     <comment>{0}のバージョンチェック中</comment>
   </data>
   <data name="MsgReplace" xml:space="preserve">
-    <value>Replace : {0}</value>
+    <value>置換中 ： {0}</value>
     <comment>置換中 ： {0}</comment>
   </data>
   <data name="MsgReplaced" xml:space="preserve">
-    <value>{0} dlls has been replaced.</value>
+    <value>{0}件のDLLが置換されました。</value>
     <comment>{0}件のDLLが置換されました。</comment>
   </data>
   <data name="MsgRequiredVersion" xml:space="preserve">
-    <value>required version up for {0}</value>
+    <value>{0}のバージョンアップが必要です。</value>
     <comment>{0}のバージョンアップが必要です。</comment>
   </data>
   <data name="MsgSpecifyTargetPath" xml:space="preserve">
-    <value>Please specify the target path</value>
+    <value>ターゲットパスを指定してください。</value>
     <comment>ターゲットパスを指定してください。</comment>
   </data>
   <data name="MsgVersionUpFor" xml:space="preserve">
-    <value>Version up for {0}. {1}</value>
+    <value>{0}のバージョンアップ中。{1}</value>
     <comment>{0}のバージョンアップ中。{1}</comment>
   </data>
   <data name="MsgVersionupNotNecessary" xml:space="preserve">
-    <value>Version up is not necessary</value>
+    <value>バージョンアップが必要なDLLはありません。</value>
     <comment>バージョンアップが必要なDLLはありません。</comment>
   </data>
   <data name="MsgWarning" xml:space="preserve">
-    <value>Warning</value>
+    <value>警告</value>
     <comment>警告</comment>
   </data>
   <data name="MsgXPathNotExist" xml:space="preserve">
-    <value>The specified XPath does not exist.</value>
+    <value>指定されたXPathは存在しません。</value>
     <comment>指定されたXPathは存在しません。</comment>
   </data>
   <data name="TabAboutHeader" xml:space="preserve">
-    <value>About</value>
+    <value>バージョン情報</value>
     <comment>バージョン情報</comment>
   </data>
   <data name="TabMainHeader" xml:space="preserve">
-    <value>Main</value>
+    <value>メイン</value>
     <comment>メイン</comment>
   </data>
   <data name="TabSettingsHeader" xml:space="preserve">
-    <value>Settings</value>
+    <value>設定</value>
     <comment>設定</comment>
   </data>
 </root>
