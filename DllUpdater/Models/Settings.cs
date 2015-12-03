@@ -52,7 +52,7 @@ namespace DllUpdater.Models
         // DLL Default FFACETools
         private const bool IniDefaultEnableFFACETools = true;
         private const string IniDefaultCheckUrlFFACETools = "https://github.com/h1pp0/FFACETools_ffevo.net/blob/master/Binary/FFACETools.dll";
-        private const string IniDefaultXPathFFACETools = ".//*[@id='js-repo-pjax-container']/div[2]/span[1]/a";
+        private const string IniDefaultXPathFFACETools = ".//*[@id='js-repo-pjax-container']/div[2]/div[1]/div[2]/span/a";
         private const string IniDefaultXPathDataFFACETools = "";
         private const string IniDefaultDownloadUrlFFACETools = "https://github.com/h1pp0/FFACETools_ffevo.net/raw/master/Binary/FFACETools.dll";
         // DLL Default EliteAPI

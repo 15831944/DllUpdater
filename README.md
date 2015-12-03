@@ -1,6 +1,6 @@
 # ![DllUpdater](http://i.imgur.com/Kr6rOIn.png)DllUpdater
 
-DllUpdaterは、FFACE.dll、FFACETools.dll、EliteAPI.dll、EliteMMO.API.dllの最新バージョンをダウンロードし、指定されたフォルダのDLLを置換するユーティリティです。
+DllUpdaterは、FFACE.dll、FFACETools.dll、EliteAPI.dll、EliteMMO.API.dllの最新バージョンをダウンロードし、指定されたフォルダのDLLを自動的に更新するユーティリティです。
 
 [![Develop status](https://ci.appveyor.com/api/projects/status/3a023qh386f722y5?svg=true&passingText=master%20-%20OK&failingText=master%20-%20NG)](https://ci.appveyor.com/project/rohme/dllupdater)
 [![Develop status](https://ci.appveyor.com/api/projects/status/9xeqrkx7xv39vw0a?svg=true&passingText=develop%20-%20OK&failingText=develop%20-%20NG)](https://ci.appveyor.com/project/rohme/dllupdater-xfnq9)
@@ -19,7 +19,7 @@ DllUpdaterは、FFACE.dll、FFACETools.dll、EliteAPI.dll、EliteMMO.API.dllの�
 ### メイン画面
 ![メイン画面](http://i.imgur.com/bJTipVs.png)
 * バージョン
-![バージョン](http://i.imgur.com/p4oZrgm.png)m
+![バージョン](http://i.imgur.com/p4oZrgm.png)  
 現在、DllUpdaterが取り込んでいるDLLのバージョンを表示しています。  
 チェックをオフにする事で、オフにしたDLLの機能（バージョンチェック・検索・置換）を停止させる事ができます。必要の無いものはチェックを外しておきましょう。
 
@@ -90,7 +90,7 @@ INIファイルを編集する場合には、DllUpdaterを終了してからに�
 
 ## 開発環境
 * Windows7 Ultimate 64bit
-* [Microsoft Visual Studio Express 2013 C#](http://www.visualstudio.com/ja-jp/products/visual-studio-express-vs.aspx)
+* [Microsoft Visual Studio Ultimate 2013](https://www.visualstudio.com/ja-jp/products/visual-studio-community-vs.aspx)
 * [.NET Framework 4.0](http://www.microsoft.com/ja-jp/net/)以上
 
 ## ソース
@@ -103,5 +103,11 @@ https://github.com/rohme/
 　このソフトウェアを使用したことによって生じたすべての障害・損害・不具合等に関しては、作者は一切の責任を負いません。各自の責任においてご使用ください。  
 
 ## 修正履歴
+*  **2015-12-03 Ver0.0.3 プレリリース**
+	- FFACEToolsのバージョンチェックXPathの変更  
+	前のバージョンに上書きして使用する場合には、DllUpdater.iniの`FFACETools`セクションを削除してから起動してください。
+* **2015-11-19 Ver0.0.2 プレリリース**
+	- EliteAPIとEliteMMO.APIのバージョンチェックURLの変更  
+	前のバージョンに上書きして使用する場合には、DllUpdater.iniの`EliteAPI`と`EliteMMOAPI`セクションを削除してから起動してください。
 * **2015-11-19 Ver0.0.1 プレリリース**
 	- とりあえずプレリリース
