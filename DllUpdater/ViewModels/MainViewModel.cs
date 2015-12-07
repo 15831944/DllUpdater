@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ComponentModel;
-
+﻿using DllUpdater.Models;
+using DllUpdater.Properties;
 using Livet;
 using Livet.Commands;
-using Livet.Messaging;
-using Livet.Messaging.IO;
 using Livet.EventListeners;
-using Livet.Messaging.Windows;
-
-using DllUpdater.Models;
+using Livet.Messaging;
+using Microsoft.WindowsAPICodePack.Dialogs;
+using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Reflection;
-using DllUpdater.Properties;
 
 namespace DllUpdater.ViewModels
 {
@@ -77,6 +70,7 @@ namespace DllUpdater.ViewModels
         }
         public void Initialize()
         {
+            // リスナー設定
             var dllsListener = new PropertyChangedEventListener(this.Dlls, (sender, e) => {
                 if (e.PropertyName == "IsRunningVersionCheck" ||
                     e.PropertyName == "IsRunningSearch" ||
@@ -92,7 +86,7 @@ namespace DllUpdater.ViewModels
                 RaisePropertyChanged(e.PropertyName); 
             });
             CompositeDisposable.Add(dllsListener);
-
+            // スタートアップ
             this.Dlls.ExecuteStartup();
         }
         public void Shutdown()
@@ -100,6 +94,7 @@ namespace DllUpdater.ViewModels
             this.Settings.Save();
         }
 
+        #region プロパティ
         #region Settings変更通知プロパティ
         private Settings _Settings;
         public Settings Settings
@@ -112,6 +107,36 @@ namespace DllUpdater.ViewModels
                     return;
                 _Settings = value;
                 RaisePropertyChanged("Settings");
+            }
+        }
+        #endregion
+        #region TargetPath変更通知プロパティ
+        private PathInfo _TargetPath;
+        public PathInfo TargetPath
+        {
+            get
+            { return _TargetPath; }
+            set
+            { 
+                if (_TargetPath == value)
+                    return;
+                _TargetPath = value;
+                RaisePropertyChanged("TargetPath");
+            }
+        }
+        #endregion
+        #region IgnorePath変更通知プロパティ
+        private PathInfo _IgnorePath;
+        public PathInfo IgnorePath
+        {
+            get
+            { return _IgnorePath; }
+            set
+            { 
+                if (_IgnorePath == value)
+                    return;
+                _IgnorePath = value;
+                RaisePropertyChanged("IgnorePath");
             }
         }
         #endregion
@@ -175,7 +200,6 @@ namespace DllUpdater.ViewModels
             }
         }
         #endregion
-
         #region UrlGitHub変更通知プロパティ
         private string _UrlGitHub;
         public string UrlGitHub
@@ -191,8 +215,9 @@ namespace DllUpdater.ViewModels
             }
         }
         #endregion
+        #endregion
 
-
+        #region コマンド
         #region VersionCheckCommand
         private ViewModelCommand _VersionCheckCommand;
         public ViewModelCommand VersionCheckCommand
@@ -318,7 +343,6 @@ namespace DllUpdater.ViewModels
             this.Dlls.ExecuteReplace();    
         }
         #endregion
-
         #region AddTargetPathCommand
         private ListenerCommand<object> _AddTargetPathCommand;
         public ListenerCommand<object> AddTargetPathCommand
@@ -358,6 +382,24 @@ namespace DllUpdater.ViewModels
                 int index = Settings.TargetPathList.IndexOf(parameter as PathInfo);
                 DeletePath(Settings.TargetPathList, index);
             }
+        }
+        #endregion
+        #region EditTargetPathCommand
+        private ViewModelCommand _EditTargetPathCommand;
+        public ViewModelCommand EditTargetPathCommand
+        {
+            get
+            {
+                if (_EditTargetPathCommand == null)
+                {
+                    _EditTargetPathCommand = new ViewModelCommand(EditTargetPath);
+                }
+                return _EditTargetPathCommand;
+            }
+        }
+        public void EditTargetPath()
+        {
+            SelectPath(this.TargetPath);
         }
         #endregion
         #region AddIgnorePathCommand
@@ -401,7 +443,24 @@ namespace DllUpdater.ViewModels
             }
         }
         #endregion
-
+        #region EditIgnorePathCommand
+        private ViewModelCommand _EditIgnorePathCommand;
+        public ViewModelCommand EditIgnorePathCommand
+        {
+            get
+            {
+                if (_EditIgnorePathCommand == null)
+                {
+                    _EditIgnorePathCommand = new ViewModelCommand(EditIgnorePath);
+                }
+                return _EditIgnorePathCommand;
+            }
+        }
+        public void EditIgnorePath()
+        {
+            SelectPath(this.IgnorePath);
+        }
+        #endregion
         #region GitHubCommand
         private ViewModelCommand _GitHubCommand;
         public ViewModelCommand GitHubCommand
@@ -420,7 +479,9 @@ namespace DllUpdater.ViewModels
             System.Diagnostics.Process.Start(Constants.UrlGitHub);
         }
         #endregion
+        #endregion
 
+        #region メソッド
         private void AddPath(ObservableCollection<PathInfo> iList,int iIndex)
         {
             if (iIndex > -1 && iIndex < iList.Count)
@@ -435,8 +496,20 @@ namespace DllUpdater.ViewModels
                 iList.RemoveAt(iIndex);
             }
         }
-
-
-        
+        private void SelectPath(PathInfo iPathInfo)
+        {
+            if (iPathInfo == null) return;
+            var dialog = new CommonOpenFileDialog();
+            dialog.IsFolderPicker = true;
+            dialog.EnsureReadOnly = false;
+            dialog.AllowNonFileSystemItems = false;
+            dialog.InitialDirectory = iPathInfo.Path;
+            var Result = dialog.ShowDialog();
+            if (Result == CommonFileDialogResult.Ok)
+            {
+                iPathInfo.Path = dialog.FileName;
+            }
+        }
+        #endregion
     }
 }

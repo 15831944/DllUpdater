@@ -1,8 +1,8 @@
 ﻿using Livet;
 
-public class DllInfo : NotificationObject
+public class SearchPathInfo : NotificationObject
 {
-    public DllInfo(bool iEnable, string iPath, string iVersion)
+    public SearchPathInfo(bool iEnable, string iPath, string iVersion)
     {
         this.Enable = iEnable;
         this.Path = iPath;
