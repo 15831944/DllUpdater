@@ -25,7 +25,7 @@
         <l:InteractionMessageTrigger Messenger="{Binding Messenger}" MessageKey="Information">
             <l:InformationDialogInteractionMessageAction/>
         </l:InteractionMessageTrigger>
-
+        
         <!--Viewに特別な要件が存在しない限りは、トリガーやアクションの自作にこだわらず積極的にコードビハインドを使いましょう -->
         <!--Viewのコードビハインドは、基本的にView内で完結するロジックとViewModelからのイベントの受信(専用リスナを使用する)に限るとトラブルが少なくなります -->
         <!--Livet1.1からはコードビハインドでViewModelのイベントを受信するためのWeakEventLisnterサポートが追加されています -->
@@ -87,11 +87,10 @@
                                     </Rectangle.OpacityMask>
                                 </Rectangle>
                             </ToggleButton>
-
                         </DockPanel>
                     </Border>
                     <StackPanel DockPanel.Dock="Left" Margin="0,0,2,0">
-                        <ToggleButton Command="{Binding DownloadDllCommand}" 
+                        <ToggleButton Command="{Binding DownloadDllCommand}"
                                       IsChecked="{Binding Dlls.IsRunningDownload, Mode=OneWay}"
                                       ToolTip="{x:Static properties:Resources.ButtonDownloadToolTip}">
                             <Rectangle Width="20"
@@ -201,9 +200,10 @@
                               Margin="2"
                               Grid.Row="1">
                         <DataGrid ItemsSource="{Binding Settings.TargetPathList, Mode=TwoWay}"
-                                      AutoGenerateColumns="False"
-                                      HeadersVisibility="Column"
-                                      Grid.Row="2">
+                                  SelectedItem="{Binding TargetPath, Mode=TwoWay}"
+                                  AutoGenerateColumns="False"
+                                  HeadersVisibility="Column"
+                                  Grid.Row="2">
                             <DataGrid.Columns>
                                 <DataGridCheckBoxColumn Header="{x:Static properties:Resources.ColEnable}"
                                                         ElementStyle="{DynamicResource MetroDataGridCheckBox}"
@@ -221,11 +221,24 @@
                                                     <ColumnDefinition Width="auto"/>
                                                     <ColumnDefinition Width="auto"/>
                                                 </Grid.ColumnDefinitions>
+                                                <!--フォルダ選択ボタン-->
+                                                <Button Grid.Column="0"
+                                                            Command="{Binding DataContext.EditTargetPathCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                            CommandParameter="{Binding}"
+                                                            Padding="5" 
+                                                            Margin="0,0,2,0">
+                                                    <Rectangle Width="16" 
+                                                                   Height="14">
+                                                        <Rectangle.Fill>
+                                                            <VisualBrush Visual="{StaticResource appbar_folder}" />
+                                                        </Rectangle.Fill>
+                                                    </Rectangle>
+                                                </Button>
                                                 <!--行追加ボタン-->
                                                 <Button Grid.Column="1"
                                                             Command="{Binding DataContext.AddTargetPathCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
                                                             CommandParameter="{Binding}"
-                                                            Padding="2" 
+                                                            Padding="5" 
                                                             Margin="0,0,2,0">
                                                     <Rectangle Width="16" 
                                                                    Height="16">
@@ -238,7 +251,7 @@
                                                 <Button Grid.Column="2"
                                                             Command="{Binding DataContext.DeleteTargetPathCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
                                                             CommandParameter="{Binding}"
-                                                            Padding="2" 
+                                                            Padding="5" 
                                                             Margin="0,0,0,0">
                                                     <Rectangle Width="16" 
                                                                    Height="3">
@@ -258,9 +271,10 @@
                               Margin="2"
                               Grid.Row="2">
                         <DataGrid ItemsSource="{Binding Settings.IgnorePathList, Mode=TwoWay}"
-                                      AutoGenerateColumns="False"
-                                      HeadersVisibility="Column"
-                                      Grid.Row="2">
+                                  SelectedItem="{Binding IgnorePath, Mode=TwoWay}"
+                                  AutoGenerateColumns="False"
+                                  HeadersVisibility="Column"
+                                  Grid.Row="2">
                             <DataGrid.Columns>
                                 <DataGridCheckBoxColumn Header="{x:Static properties:Resources.ColEnable}"
                                                             ElementStyle="{DynamicResource MetroDataGridCheckBox}"
@@ -269,26 +283,54 @@
                                 <DataGridTextColumn Header="{x:Static properties:Resources.ColPath}"
                                                     Binding="{Binding Path, UpdateSourceTrigger=PropertyChanged}"
                                                     Width="*"/>
-                                <DataGridCheckBoxColumn Header="FFACE"
+                                <!--FFACE-->
+                                <DataGridCheckBoxColumn Header=""
                                                         ElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                                         EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                                         Binding="{Binding FFACE, UpdateSourceTrigger=PropertyChanged}" 
-                                                        Width="auto"/>
-                                <DataGridCheckBoxColumn Header="FFACETools"
+                                                        Width="auto">
+                                    <DataGridCheckBoxColumn.CellStyle>
+                                        <Style TargetType="DataGridCell">
+                                            <Setter Property="ToolTipService.ToolTip" Value="FFACE"/>
+                                        </Style>
+                                    </DataGridCheckBoxColumn.CellStyle>
+                                </DataGridCheckBoxColumn>
+                                <!--FFACETools-->
+                                <DataGridCheckBoxColumn Header=""
                                                         ElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                                         EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                                         Binding="{Binding FFACETools, UpdateSourceTrigger=PropertyChanged}" 
-                                                        Width="auto"/>
-                                <DataGridCheckBoxColumn Header="EliteAPI"
+                                                        Width="auto">
+                                    <DataGridCheckBoxColumn.CellStyle>
+                                        <Style TargetType="DataGridCell">
+                                            <Setter Property="ToolTipService.ToolTip" Value="FFACETools"/>
+                                        </Style>
+                                    </DataGridCheckBoxColumn.CellStyle>
+                                </DataGridCheckBoxColumn>
+                                <!--EliteAPI-->
+                                <DataGridCheckBoxColumn Header=""
                                                         ElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                                         EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                                         Binding="{Binding EliteAPI, UpdateSourceTrigger=PropertyChanged}" 
-                                                        Width="auto"/>
-                                <DataGridCheckBoxColumn Header="EliteMMOAPI"
+                                                        Width="auto">
+                                    <DataGridCheckBoxColumn.CellStyle>
+                                        <Style TargetType="DataGridCell">
+                                            <Setter Property="ToolTipService.ToolTip" Value="EliteAPI"/>
+                                        </Style>
+                                    </DataGridCheckBoxColumn.CellStyle>
+                                </DataGridCheckBoxColumn>
+                                <!--EliteMMOAPI-->
+                                <DataGridCheckBoxColumn Header=""
                                                         ElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                                         EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
                                                         Binding="{Binding EliteMMOAPI, UpdateSourceTrigger=PropertyChanged}" 
-                                                        Width="auto"/>
+                                                        Width="auto">
+                                    <DataGridCheckBoxColumn.CellStyle>
+                                        <Style TargetType="DataGridCell">
+                                            <Setter Property="ToolTipService.ToolTip" Value="EliteMMO.API"/>
+                                        </Style>
+                                    </DataGridCheckBoxColumn.CellStyle>
+                                </DataGridCheckBoxColumn>
                                 <DataGridTemplateColumn Header="{x:Static properties:Resources.ColEdit}">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -298,11 +340,24 @@
                                                     <ColumnDefinition Width="auto"/>
                                                     <ColumnDefinition Width="auto"/>
                                                 </Grid.ColumnDefinitions>
+                                                <!--フォルダ選択ボタン-->
+                                                <Button Grid.Column="0"
+                                                            Command="{Binding DataContext.EditIgnorePathCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                            CommandParameter="{Binding}"
+                                                            Padding="5" 
+                                                            Margin="0,0,2,0">
+                                                    <Rectangle Width="16" 
+                                                                   Height="14">
+                                                        <Rectangle.Fill>
+                                                            <VisualBrush Visual="{StaticResource appbar_folder}" />
+                                                        </Rectangle.Fill>
+                                                    </Rectangle>
+                                                </Button>
                                                 <!--行追加ボタン-->
                                                 <Button Grid.Column="1"
                                                             Command="{Binding DataContext.AddIgnorePathCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
                                                             CommandParameter="{Binding}"
-                                                            Padding="2" 
+                                                            Padding="5" 
                                                             Margin="0,0,2,0">
                                                     <Rectangle Width="16" 
                                                                    Height="16">
@@ -315,7 +370,7 @@
                                                 <Button Grid.Column="2"
                                                             Command="{Binding DataContext.DeleteIgnorePathCommand, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
                                                             CommandParameter="{Binding}"
-                                                            Padding="2" 
+                                                            Padding="5" 
                                                             Margin="0,0,0,0">
                                                     <Rectangle Width="16" 
                                                                    Height="3">
@@ -383,11 +438,11 @@
                                 Margin="0,10,0,0">
                             <StackPanel HorizontalAlignment="Stretch" 
                                         Orientation="Horizontal">
-                                <Rectangle Width="16" 
+                                <Rectangle Width="16"
                                            Height="16" 
                                            Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                                     <Rectangle.OpacityMask>
-                                        <VisualBrush Stretch="Fill" 
+                                        <VisualBrush Stretch="Fill"
                                                      Visual="{DynamicResource appbar_social_github_octocat_solid}" />
                                     </Rectangle.OpacityMask>
                                 </Rectangle>

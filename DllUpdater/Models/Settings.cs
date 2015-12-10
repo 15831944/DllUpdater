@@ -46,7 +46,7 @@ namespace DllUpdater.Models
         // DLL Default FFACE
         private const bool IniDefaultEnableFFACE = true;
         private const string IniDefaultCheckUrlFFACE = "http://delvl.ffevo.net/Lolwutt/FFACE4-Public/blob/master/FFACE.dll";
-        private const string IniDefaultXPathFFACE = ".//*[@id='tree-holder']/ul[2]/li/div[1]/div[1]/a";
+        private const string IniDefaultXPathFFACE = ".//*[@id='tree-holder']/ul/li/div[1]/div[1]/a";
         private const string IniDefaultXPathDataFFACE = "";
         private const string IniDefaultDownloadUrlFFACE = "http://delvl.ffevo.net/Lolwutt/FFACE4-Public/raw/master/FFACE.dll";
         // DLL Default FFACETools

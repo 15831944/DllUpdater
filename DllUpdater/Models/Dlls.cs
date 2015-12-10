@@ -31,7 +31,7 @@ namespace DllUpdater.Models
             this.IsRunningReplace = false;
             this.StatusMessage = string.Empty;
             RefreshDllVersion();
-            this.DllList = new DispatcherCollection<DllInfo>(DispatcherHelper.UIDispatcher);
+            this.DllList = new DispatcherCollection<SearchPathInfo>(DispatcherHelper.UIDispatcher);
         }
 
         #region プロパティ
@@ -173,8 +173,8 @@ namespace DllUpdater.Models
         }
         #endregion
         #region DllList変更通知プロパティ
-        private DispatcherCollection<DllInfo> _DllList;
-        public DispatcherCollection<DllInfo> DllList
+        private DispatcherCollection<SearchPathInfo> _DllList;
+        public DispatcherCollection<SearchPathInfo> DllList
         {
             get
             { return _DllList; }
@@ -514,7 +514,7 @@ namespace DllUpdater.Models
 
                 bool enable = IsVersionAbobe(GetSourcePath(DllTypeExt.GetDllType(fullpath)), fullpath);
                 string version = GetDllVersion(fullpath);
-                DllList.Add(new DllInfo(
+                DllList.Add(new SearchPathInfo(
                     enable,
                     fullpath,
                     version));
