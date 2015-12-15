@@ -655,7 +655,7 @@ namespace DllUpdater.Models
             FileVersionInfo viT = FileVersionInfo.GetVersionInfo(iDestFullPath);
             if (viT.FileMajorPart < viS.FileMajorPart) return true;
             else
-                if (viT.FileMajorPart < viS.FileMajorPart) return true;
+                if (viT.FileMinorPart < viS.FileMinorPart) return true;
                 else
                     if (viT.FileBuildPart < viS.FileBuildPart) return true;
                     else
