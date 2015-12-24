@@ -1,10 +1,9 @@
 # ![DllUpdater](http://i.imgur.com/Kr6rOIn.png)DllUpdater
 
-DllUpdaterは、FFACE.dll、FFACETools.dll、EliteAPI.dll、EliteMMO.API.dllの最新バージョンをダウンロードし、指定されたフォルダのDLLを自動的に更新するユーティリティです。
-
 [![Develop status](https://ci.appveyor.com/api/projects/status/3a023qh386f722y5?svg=true&passingText=master%20-%20OK&failingText=master%20-%20NG)](https://ci.appveyor.com/project/rohme/dllupdater)
 [![Develop status](https://ci.appveyor.com/api/projects/status/9xeqrkx7xv39vw0a?svg=true&passingText=develop%20-%20OK&failingText=develop%20-%20NG)](https://ci.appveyor.com/project/rohme/dllupdater-xfnq9)
 
+DllUpdaterは、FFACE.dll、FFACETools.dll、EliteAPI.dll、EliteMMO.API.dllの最新バージョンをダウンロードし、指定されたフォルダのDLLを自動的に更新するユーティリティです。
 
 ![全体イメージ](http://i.imgur.com/bJTipVs.png)
 
@@ -12,7 +11,7 @@ DllUpdaterは、FFACE.dll、FFACETools.dll、EliteAPI.dll、EliteMMO.API.dllの�
 1. 初回起動時、自動的に最新のDLLをインターネットより取得するので、終わるまで待ちましょう。
 2. 設定タブより検索対象とするディレクトリを登録する。
 3. ![検索ボタン](http://i.imgur.com/Ge3019j.png)検索ボタンを押して、DLLを検索する。
-4. 一覧に検索結果が表示されるので、更新が必要なDLLをチェックします。
+4. 一覧に検索結果が表示されるので、更新が必要なDLLをチェックします。（更新が必要なDLLにはデフォルトでチェックが入ります。）
 5. ![置換ボタン](http://i.imgur.com/GFyLaix.png)置換ボタンを押して、DLLを更新します。
 
 ## 画面説明
@@ -103,6 +102,8 @@ https://github.com/rohme/
 　このソフトウェアを使用したことによって生じたすべての障害・損害・不具合等に関しては、作者は一切の責任を負いません。各自の責任においてご使用ください。  
 
 ## 修正履歴
+* **2015-12-25 Ver1.0.1**
+	- バージョン比較の修正
 * **2015-12-10 Ver1.0.0**
 	- 設定画面にフォルダ選択ボタンを追加
 	- FFACEのバージョンチェックXPathの変更
