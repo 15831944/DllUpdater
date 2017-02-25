@@ -9,12 +9,10 @@ namespace DllUpdater.Models
 {
     public class PathInfo : NotificationObject
     {
-        public PathInfo(bool iEnable, string iPath, bool iFFACE, bool iFFACETools, bool iEliteAPI, bool iEliteMMOAPI)
+        public PathInfo(bool iEnable, string iPath, bool iEliteAPI, bool iEliteMMOAPI)
         {
             this.Enable = iEnable;
             this.Path = iPath;
-            this.FFACE = iFFACE;
-            this.FFACETools = iFFACETools;
             this.EliteAPI = iEliteAPI;
             this.EliteMMOAPI = iEliteMMOAPI;
         }
@@ -46,36 +44,6 @@ namespace DllUpdater.Models
                     return;
                 _Path = value;
                 RaisePropertyChanged("Path");
-            }
-        }
-        #endregion
-        #region FFACE変更通知プロパティ
-        private bool _FFACE;
-        public bool FFACE
-        {
-            get
-            { return _FFACE; }
-            set
-            { 
-                if (_FFACE == value)
-                    return;
-                _FFACE = value;
-                RaisePropertyChanged("FFACE");
-            }
-        }
-        #endregion
-        #region FFACETools変更通知プロパティ
-        private bool _FFACETools;
-        public bool FFACETools
-        {
-            get
-            { return _FFACETools; }
-            set
-            { 
-                if (_FFACETools == value)
-                    return;
-                _FFACETools = value;
-                RaisePropertyChanged("FFACETools");
             }
         }
         #endregion

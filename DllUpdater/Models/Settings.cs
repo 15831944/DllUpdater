@@ -33,8 +33,6 @@ namespace DllUpdater.Models
         private const int IniDefaultProxyPort = 8080;
 
         // DLL
-        private const string IniSectionFFACE = "FFACE";
-        private const string IniSectionFFACETools = "FFACETools";
         private const string IniSectionEliteAPI = "EliteAPI";
         private const string IniSectionEliteMMOAPI = "EliteMMOAPI";
         // DLL Key
@@ -43,18 +41,6 @@ namespace DllUpdater.Models
         private const string IniKeyXPath = "XPath";
         private const string IniKeyXPathLastestData = "XPathLastestData";
         private const string IniKeyDownloadUrl = "DownloadUrl";
-        // DLL Default FFACE
-        private const bool IniDefaultEnableFFACE = true;
-        private const string IniDefaultCheckUrlFFACE = "http://delvl.ffevo.net/Lolwutt/FFACE4-Public/blob/master/FFACE.dll";
-        private const string IniDefaultXPathFFACE = ".//*[@id='tree-holder']/ul/li/div[1]/div[1]/a";
-        private const string IniDefaultXPathDataFFACE = "";
-        private const string IniDefaultDownloadUrlFFACE = "http://delvl.ffevo.net/Lolwutt/FFACE4-Public/raw/master/FFACE.dll";
-        // DLL Default FFACETools
-        private const bool IniDefaultEnableFFACETools = true;
-        private const string IniDefaultCheckUrlFFACETools = "https://github.com/h1pp0/FFACETools_ffevo.net/blob/master/Binary/FFACETools.dll";
-        private const string IniDefaultXPathFFACETools = ".//*[@id='js-repo-pjax-container']/div[2]/div[1]/div[2]/span/a";
-        private const string IniDefaultXPathDataFFACETools = "";
-        private const string IniDefaultDownloadUrlFFACETools = "https://github.com/h1pp0/FFACETools_ffevo.net/raw/master/Binary/FFACETools.dll";
         // DLL Default EliteAPI
         private const bool IniDefaultEnableEliteAPI = true;
         private const string IniDefaultCheckUrlEliteAPI = "http://ext.elitemmonetwork.com/downloads/eliteapi/index.php?v";
@@ -85,8 +71,6 @@ namespace DllUpdater.Models
         // Proxy
         public Proxy Proxy { get; set; }
         // DLL
-        public DllTypeInfo FFACE { get; set; }
-        public DllTypeInfo FFACETools { get; set; }
         public DllTypeInfo EliteAPI { get; set; }
         public DllTypeInfo EliteMMOAPI { get; set; }
         public Dictionary<DllType, DllTypeInfo> DllTypeInfoList = new Dictionary<DllType, DllTypeInfo>();
@@ -114,8 +98,6 @@ namespace DllUpdater.Models
                             (value[0] == "1"),
                             value[1],
                             true,
-                            true,
-                            true,
                             true
                             ));
                     }
@@ -123,7 +105,7 @@ namespace DllUpdater.Models
             }
             if (this.TargetPathList.Count == 0)
             {
-                this.TargetPathList.Add(new PathInfo(true, string.Empty, true, true, true, true));
+                this.TargetPathList.Add(new PathInfo(true, string.Empty, true, true));
             }
             // IgnorePath
             this.IgnorePathList = new ObservableCollection<PathInfo>();
@@ -132,7 +114,7 @@ namespace DllUpdater.Models
                 string key = string.Format(IniKeyIgnorePath + "{0:00}", i);
                 string iniString = ini.GetString(IniSectionGlobals, key, IniDefaultIgnorePath);
                 string[] value = iniString.Split(',');
-                if (value.Length == 6)
+                if (value.Length == 4)
                 {
                     if (value[1].Length > 0)
                     {
@@ -140,16 +122,14 @@ namespace DllUpdater.Models
                             (value[0] == "1"),
                             value[1],
                             (value[2] == "1"),
-                            (value[3] == "1"),
-                            (value[4] == "1"),
-                            (value[5] == "1")
+                            (value[3] == "1")
                             ));
                     }
                 }
             }
             if (this.IgnorePathList.Count == 0)
             {
-                this.IgnorePathList.Add(new PathInfo(true, string.Empty, true, true, true, true));
+                this.IgnorePathList.Add(new PathInfo(true, string.Empty, true, true));
             }
 
             // Proxy
@@ -160,30 +140,6 @@ namespace DllUpdater.Models
                 Port = ini.GetInt(IniSectionProxy, IniKeyProxyPort, IniDefaultProxyPort)
             };
 
-            // DLL FFACE
-            this.FFACE = new DllTypeInfo()
-            {
-                DllType     = DllType.FFACE,
-                Enable      = ini.GetBool(IniSectionFFACE, IniKeyEnable, IniDefaultEnableFFACE),
-                Filename = Constants.FilenameFFACE,
-                CheckUrl = ini.GetString(IniSectionFFACE, IniKeyCheckUrl, IniDefaultCheckUrlFFACE),
-                XPath       = ini.GetString(IniSectionFFACE, IniKeyXPath, IniDefaultXPathFFACE),
-                XPathData   = ini.GetString(IniSectionFFACE, IniKeyXPathLastestData, IniDefaultXPathDataFFACE),
-                DownloadUrl = ini.GetString(IniSectionFFACE, IniKeyDownloadUrl, IniDefaultDownloadUrlFFACE)
-            };
-            this.DllTypeInfoList.Add(DllType.FFACE, this.FFACE);
-            // DLL FFACETools
-            this.FFACETools = new DllTypeInfo()
-            {
-                DllType = DllType.FFACETools,
-                Enable = ini.GetBool(IniSectionFFACETools, IniKeyEnable, IniDefaultEnableFFACETools),
-                Filename = Constants.FilenameFFACETools,
-                CheckUrl = ini.GetString(IniSectionFFACETools, IniKeyCheckUrl, IniDefaultCheckUrlFFACETools),
-                XPath = ini.GetString(IniSectionFFACETools, IniKeyXPath, IniDefaultXPathFFACETools),
-                XPathData = ini.GetString(IniSectionFFACETools, IniKeyXPathLastestData, IniDefaultXPathDataFFACETools),
-                DownloadUrl = ini.GetString(IniSectionFFACETools, IniKeyDownloadUrl, IniDefaultDownloadUrlFFACETools)
-            };
-            this.DllTypeInfoList.Add(DllType.FFACETools, this.FFACETools);
             // DLL EliteAPI
             this.EliteAPI = new DllTypeInfo()
             {
@@ -248,8 +204,6 @@ namespace DllUpdater.Models
                         string value = string.Join(",",
                             (this.IgnorePathList[i].Enable) ? "1" : "0",
                             this.IgnorePathList[i].Path,
-                            (this.IgnorePathList[i].FFACE) ? "1" : "0",
-                            (this.IgnorePathList[i].FFACETools) ? "1" : "0",
                             (this.IgnorePathList[i].EliteAPI) ? "1" : "0",
                             (this.IgnorePathList[i].EliteMMOAPI) ? "1" : "0");
                         ini.SetString(IniSectionGlobals, key, value);
@@ -266,18 +220,6 @@ namespace DllUpdater.Models
             ini.SetString(IniSectionProxy, IniKeyProxyServer, this.Proxy.Server);
             ini.SetInt(IniSectionProxy, IniKeyProxyPort, this.Proxy.Port);
 
-            // DLL FFACE
-            ini.SetBool(IniSectionFFACE, IniKeyEnable, this.FFACE.Enable);
-            ini.SetString(IniSectionFFACE, IniKeyCheckUrl, this.FFACE.CheckUrl);
-            ini.SetString(IniSectionFFACE, IniKeyXPath, this.FFACE.XPath);
-            ini.SetString(IniSectionFFACE, IniKeyXPathLastestData, this.FFACE.XPathData);
-            ini.SetString(IniSectionFFACE, IniKeyDownloadUrl, this.FFACE.DownloadUrl);
-            // DLL FFACETools
-            ini.SetBool(IniSectionFFACETools, IniKeyEnable, this.FFACETools.Enable);
-            ini.SetString(IniSectionFFACETools, IniKeyCheckUrl, this.FFACETools.CheckUrl);
-            ini.SetString(IniSectionFFACETools, IniKeyXPath, this.FFACETools.XPath);
-            ini.SetString(IniSectionFFACETools, IniKeyXPathLastestData, this.FFACETools.XPathData);
-            ini.SetString(IniSectionFFACETools, IniKeyDownloadUrl, this.FFACETools.DownloadUrl);
             // DLL EliteAPI
             ini.SetBool(IniSectionEliteAPI, IniKeyEnable, this.EliteAPI.Enable);
             ini.SetString(IniSectionEliteAPI, IniKeyCheckUrl, this.EliteAPI.CheckUrl);
