@@ -3,9 +3,9 @@
 [![Develop status](https://ci.appveyor.com/api/projects/status/3a023qh386f722y5?svg=true&passingText=master%20-%20OK&failingText=master%20-%20NG)](https://ci.appveyor.com/project/rohme/dllupdater)
 [![Develop status](https://ci.appveyor.com/api/projects/status/9xeqrkx7xv39vw0a?svg=true&passingText=develop%20-%20OK&failingText=develop%20-%20NG)](https://ci.appveyor.com/project/rohme/dllupdater-xfnq9)
 
-DllUpdaterは、FFACE.dll、FFACETools.dll、EliteAPI.dll、EliteMMO.API.dllの最新バージョンをダウンロードし、指定されたフォルダのDLLを自動的に更新するユーティリティです。
+DllUpdaterは、EliteAPI.dll、EliteMMO.API.dllの最新バージョンをダウンロードし、指定されたフォルダのDLLを自動的に更新するユーティリティです。
 
-![全体イメージ](http://i.imgur.com/bJTipVs.png)
+![全体イメージ](http://i.imgur.com/TBCCcHi.jpg)
 
 ## 使用方法
 1. 初回起動時、自動的に最新のDLLをインターネットより取得するので、終わるまで待ちましょう。
@@ -16,9 +16,9 @@ DllUpdaterは、FFACE.dll、FFACETools.dll、EliteAPI.dll、EliteMMO.API.dllの�
 
 ## 画面説明
 ### メイン画面
-![メイン画面](http://i.imgur.com/bJTipVs.png)
+![メイン画面](http://i.imgur.com/TBCCcHi.jpg)
 * バージョン
-![バージョン](http://i.imgur.com/p4oZrgm.png)  
+![バージョン](http://i.imgur.com/H2glUod.jpg)  
 現在、DllUpdaterが取り込んでいるDLLのバージョンを表示しています。  
 チェックをオフにする事で、オフにしたDLLの機能（バージョンチェック・検索・置換）を停止させる事ができます。必要の無いものはチェックを外しておきましょう。
 
@@ -39,7 +39,7 @@ DLLの配布先のページをチェックし、変更があった場合DLLの�
 一覧でチェックの入ったDLLのみ、DllUpdaterに取り込まれた最新のDLLに置換します。
 
 ### 設定画面
-![設定画面](http://i.imgur.com/gGDxkZb.png)
+![設定画面](http://i.imgur.com/uwdUORi.jpg)
 * 起動時に最新のDLLをダウンロードする  
 起動時に、インターネットのDLL配布ページを見に行き、変更があった場合最新のDLLをダウンロードします。
 
@@ -51,28 +51,25 @@ DLLの配布先のページをチェックし、変更があった場合DLLの�
 
 * 対象パス  
 DLLを検索する対象となるパスを指定します。（サブフォルダも含みます）  
-Enableのチェックを外すと、一時的に対象外とする事ができます。
+有効のチェックを外すと、一時的に対象外とする事ができます。
 
 * 除外パス  
 DLLを検索する対象としたくないパスを指定します。（サブフォルダも含みます）  
 各DLLのチェックを外すと、除外対象から外れます。  
-たとえば、EnjoyFishingは独自のFFACEToolsを使用しており、FFACETools以外を更新したい。  
-その場合には以下のように、FFACEToolsのみ除外することができます。
-![例](http://i.imgur.com/r1jR3Xv.png)
 
 ## バージョンチェック
 DllUpdaterはバージョンの変更があったのかを判断するのに、各DLLのリリースページを監視して判断しています。  
 もし、リリースページがレイアウト変更された等で、バージョンアップが判定できなくなった場合には、DllUpdater.iniファイルの設定を変更してください。  
-以下にFFACEの場合の例を説明します。
+以下にEliteAPI.dllの場合の例を説明します。
 ```INI
-[FFACE]
-Enable = 1
-CheckUrl = http://delvl.ffevo.net/Lolwutt/FFACE4-Public/blob/master/FFACE.dll
-XPath = .//*[@id='tree-holder']/ul[2]/li/div[1]/div[1]/a
-XPathLastestData = c5349a5a
-DownloadUrl = http://delvl.ffevo.net/Lolwutt/FFACE4-Public/raw/master/FFACE.dll
+[EliteAPI]
+Enable=1
+CheckUrl=http://ext.elitemmonetwork.com/downloads/eliteapi/index.php?v
+XPath=.
+XPathLastestData=1.3.0.0
+DownloadUrl=http://ext.elitemmonetwork.com/downloads/eliteapi/EliteAPI.dll
 ```
-| Key              | 説明                                                                                                    |
+| キー             | 説明                                                                                                    |
 |------------------|---------------------------------------------------------------------------------------------------------|
 | Enable           | メイン画面上部の有効チェックの値が格納される。<br>0:無効 1:有効                                         |
 | CheckUrl         | リリースページ等、バージョンアップがあったときに変更される文字列がある<br>URLを指定する。               |
@@ -88,8 +85,8 @@ INIファイルを編集する場合には、DllUpdaterを終了してからに�
 3. アンインストールは、解凍したディレクトリを削除するだけです。
 
 ## 開発環境
-* Windows7 Ultimate 64bit
-* [Microsoft Visual Studio Ultimate 2013](https://www.visualstudio.com/ja-jp/products/visual-studio-community-vs.aspx)
+* Windows10 Pro 64bit
+* [Microsoft Visual Studio Community 2015 Update 3](https://www.visualstudio.com/)
 * [.NET Framework 4.0](http://www.microsoft.com/ja-jp/net/)以上
 
 ## ソース
@@ -102,6 +99,11 @@ https://github.com/rohme/
 　このソフトウェアを使用したことによって生じたすべての障害・損害・不具合等に関しては、作者は一切の責任を負いません。各自の責任においてご使用ください。  
 
 ## 修正履歴
+* **2017-02-28 Ver1.1.0**
+	- FFACEが完全終了しているので、関連機能を削除
+	- 開発ツールをVisualStudio2015に変更  
+	**[VisualStudio2015のランタイム(x86)](https://www.microsoft.com/ja-jp/download/details.aspx?id=48145)が必要になりますので、インストールをお願いします。**
+	- 各ライブラリのアップデート
 * **2015-12-25 Ver1.0.1**
 	- バージョン比較の修正
 * **2015-12-10 Ver1.0.0**
