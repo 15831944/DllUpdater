@@ -242,7 +242,7 @@
     <comment>{0}のバージョンアップが必要です。</comment>
   </data>
   <data name="MsgSpecifyTargetPath" xml:space="preserve">
-    <value>ターゲットパスを指定してください。</value>
+    <value>設定より対象パスを指定してください。</value>
     <comment>ターゲットパスを指定してください。</comment>
   </data>
   <data name="MsgVersionUpFor" xml:space="preserve">

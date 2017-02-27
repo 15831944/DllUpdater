@@ -112,36 +112,6 @@ namespace DllUpdater.Models
         }
         #endregion
 
-        #region VersionFFACE変更通知プロパティ
-        private string _VersionFFACE;
-        public string VersionFFACE
-        {
-            get
-            { return _VersionFFACE; }
-            set
-            { 
-                if (_VersionFFACE == value)
-                    return;
-                _VersionFFACE = value;
-                RaisePropertyChanged("VersionFFACE");
-            }
-        }
-        #endregion
-        #region VersionFFACETools変更通知プロパティ
-        private string _VersionFFACETools;
-        public string VersionFFACETools
-        {
-            get
-            { return _VersionFFACETools; }
-            set
-            { 
-                if (_VersionFFACETools == value)
-                    return;
-                _VersionFFACETools = value;
-                RaisePropertyChanged("VersionFFACETools");
-            }
-        }
-        #endregion
         #region VersionEliteAPI変更通知プロパティ
         private string _VersionEliteAPI;
         public string VersionEliteAPI
@@ -535,7 +505,7 @@ namespace DllUpdater.Models
         {
             foreach (var v in settings.IgnorePathList)
             {
-                if (v.Enable && v.Path.Length > 0 && v.FFACE && v.FFACETools && v.EliteAPI && v.EliteMMOAPI)
+                if (v.Enable && v.Path.Length > 0 && v.EliteAPI && v.EliteMMOAPI)
                 {
                     if (iPath.ToLower().IndexOf(v.Path.ToLower()) >= 0) return true;
                 }
@@ -562,9 +532,7 @@ namespace DllUpdater.Models
                 if (!ignorePath.Enable || ignorePath.Path.Length == 0) continue;
                 if (dirname.IndexOf(ignorePath.Path.ToLower()) >= 0)
                 {
-                    if ((dllType == DllType.FFACE && ignorePath.FFACE) ||
-                        (dllType == DllType.FFACETools && ignorePath.FFACETools) ||
-                        (dllType == DllType.EliteAPI && ignorePath.EliteAPI) ||
+                    if ((dllType == DllType.EliteAPI && ignorePath.EliteAPI) ||
                         (dllType == DllType.EliteMMOAPI && ignorePath.EliteMMOAPI))
                     {
                         return true;
@@ -636,9 +604,7 @@ namespace DllUpdater.Models
         /// <returns>置換可能な場合True</returns>
         public bool IsReplaceOK()
         {
-            if ((settings.FFACE.Enable && this.VersionFFACE == Constants.DefaultVersion) ||
-                (settings.FFACETools.Enable && this.VersionFFACETools == Constants.DefaultVersion) ||
-                (settings.EliteAPI.Enable && this.VersionEliteAPI == Constants.DefaultVersion) ||
+            if ((settings.EliteAPI.Enable && this.VersionEliteAPI == Constants.DefaultVersion) ||
                 (settings.EliteMMOAPI.Enable && this.VersionEliteMMOAPI == Constants.DefaultVersion)) return false;
             return true;
         }
@@ -723,8 +689,6 @@ namespace DllUpdater.Models
         /// </summary>
         private void RefreshDllVersion()
         {
-            this.VersionFFACE = GetDllVersion(GetSourcePath(DllType.FFACE));
-            this.VersionFFACETools = GetDllVersion(GetSourcePath(DllType.FFACETools));
             this.VersionEliteAPI = GetDllVersion(GetSourcePath(DllType.EliteAPI));
             this.VersionEliteMMOAPI = GetDllVersion(GetSourcePath(DllType.EliteMMOAPI));
         }
